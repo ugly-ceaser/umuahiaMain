@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Management</title>
+    <link rel="stylesheet" href="../css/user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../img/logo.png" alt="Logo">
+            </div>
+            <ul class="menu">
+                <a href="/"><li class="menu-item active"><i class="fas fa-users"></i> Profile</li></a>
+                <a href="/min"><li class="menu-item"><i class="fas fa-book"></i> Minutes</li></a>
+            </ul>
+            <div class="bottom-menu">
+                <a href="/set"><li class="menu-item"><i class="fas fa-cog"></i> Settings</li></a>
+                <a href="signin.html"><li class="menu-item logout"><i class="fas fa-sign-out-alt"></i> Logout</li></a>
+            </div>            
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <header>
+                <h2>Profile</h2>
+                <div class="user-info">
+                    <img src="profile.jpg" alt="User">
+                    <div>
+                        <p class="name">Ayora Nuel</p>
+                        <p class="role">Super Admin</p>
+                    </div>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                </div>
+            </header>
+
+            <div class="container">
+                <p class="info-text">Manage your personal information on your account.</p>
+                <div class="profile-container">
+                    <div class="left-section">
+                        <div class="profile-card">
+                            <div class="profile-pic">
+                                <span>PO</span>
+                            </div>
+                            <h2 class="name">Patricia Oko</h2>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="right-section">
+                        <div class="profile-info">
+                            <h3>ROLE</h3>
+                            <p>-</p>
+                            <h3>ABOUT ME</h3>
+                            <p>-</p>
+                        </div>
+                    </div>
+                    <button class="edit-btn">Edit Profile ✏️</button>
+                </div>
+            </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toast = document.getElementById("toast");
+
+            function showToast(title, message, isSuccess = true) {
+                const toastTitle = document.getElementById("toast-title");
+                const toastMessage = document.getElementById("toast-message");
+                const toastIcon = document.getElementById("toast-icon");
+
+                toastTitle.textContent = title;
+                toastMessage.textContent = message;
+
+                if (isSuccess) {
+                    toast.classList.remove("error");
+                    toast.classList.add("success");
+                    toastIcon.src = "../img/checks.png";
+                } else {
+                    toast.classList.remove("success");
+                    toast.classList.add("error");
+                    toastIcon.src = "../img/errors.png"; 
+                }
+
+                toast.classList.add("show");
+
+                setTimeout(() => {
+                    hideToast();
+                }, 5000);
+            }
+
+            function hideToast() {
+                toast.classList.remove("show");
+            }
+        });
+    </script>
+
+</body>
+</html>

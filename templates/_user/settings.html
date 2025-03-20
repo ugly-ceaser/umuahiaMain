@@ -1,0 +1,111 @@
+{% extends './_base.html' %}
+{% load static %}
+
+{% block page_title %}Settings{% endblock page_title %}
+
+{% block content %}
+
+<div class="max-w-7xl mx-auto py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Update Password Form (Left Column) -->
+        <div class="bg-white p-8 rounded-xl ">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Update Password</h3>
+            <p class="text-gray-500 mb-6">Enter your current password to make an update</p>
+
+            {% if messages %}
+            {% for message in messages %}
+            <div class="p-4 mb-4 border-l-4
+                          {% if 'error' in message.tags %}
+                              border-red-500 bg-red-100 text-red-800
+                          {% elif 'success' in message.tags %}
+                              border-green-500 bg-green-100 text-green-800
+                          {% else %}
+                              border-gray-500 bg-gray-100 text-gray-800
+                          {% endif %}">
+                <div class="flex justify-between items-center">
+                    <span class="ml-2">{{ message }}</span>
+                    <button type="button" class="ml-4 text-gray-500 hover:text-gray-700"
+                        onclick="this.parentElement.parentElement.remove()">
+                        &times;
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+
+            <form action="{% url 'user:change_password' %}" method="post">
+                {% csrf_token %}
+                <div class="space-y-6">
+                    <!-- Current Password -->
+                    <div class="relative">
+                        <input type="password" id="current-password" placeholder="Current Password"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            name="current-password">
+                        <button onclick="togglePassword('current-password')"
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-blue-500 cursor-pointer"
+                            type="button">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- New Password -->
+                    <div class="relative">
+                        <input type="password" id="new-password" placeholder="New Password"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            name="new-password">
+                        <button onclick="togglePassword('new-password')"
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-blue-500 cursor-pointer"
+                            type="button">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- New Password -->
+                    <div class="relative">
+                        <input type="password" id="new-password2" placeholder="New Password"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            name="new-password2" type="button">
+                        <button onclick="togglePassword('new-password')"
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-blue-500 cursor-pointer">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Update Button -->
+                    <button id="update-password-btn"
+                        class="w-full py-3 px-6 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
+                        type="submit">
+                        Update Password
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePassword(inputId) {
+        const input = document.getElementById(inputId);
+        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+        input.setAttribute('type', type);
+    }
+</script>
+
+{% endblock content %}

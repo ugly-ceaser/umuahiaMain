@@ -1,0 +1,33 @@
+{% extends "./_base.html" %}
+{% load static %}
+
+{% block title %}Email Verification Failed{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="bg-white rounded-lg p-8 max-w-lg w-full text-center">
+        <h1 class="text-3xl font-bold text-red-600">❌ Email Verification Failed!</h1>
+        <p class="mt-4 text-gray-700">We could not verify your email address. This could be due to:</p>
+
+        <ul class="mt-4 text-left text-gray-600 space-y-2">
+            <li class="flex items-center">
+                <span class="mr-2">➡️</span> Invalid or expired verification link.
+            </li>
+            <li class="flex items-center">
+                <span class="mr-2">➡️</span> Your email is already verified.
+            </li>
+            <li class="flex items-center">
+                <span class="mr-2">➡️</span> There was an error processing your request.
+            </li>
+        </ul>
+
+        <p class="mt-4 text-gray-700">If you believe this is a mistake, please request a new verification email or
+            contact support.</p>
+
+        <a href="{% url 'accounts:resend_verification_email' %}"
+            class="mt-6 inline-block bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded transition">
+            Resend Verification Email
+        </a>
+    </div>
+</div>
+{% endblock %}

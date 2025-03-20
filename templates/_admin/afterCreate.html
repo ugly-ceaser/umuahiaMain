@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Management</title>
+    <link rel="stylesheet" href="../css/user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <div class="dashboard">
+        <!-- Sidebar / Navbar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../img/logo.png" alt="Logo">
+            </div>
+            <ul class="menu">
+                <li class="menu-item active"><a href="/"><i class="fas fa-users"></i> Members</a></li>
+                <li class="menu-item"><a href="/min"><i class="fas fa-book"></i> Minutes</a></li>
+            </ul>
+    
+            <div class="bottom-menu">
+                <li class="menu-item"><a href="/set"><i class="fas fa-cog"></i> Settings</a></li>
+                <li class="menu-item logout"><a href="signin.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </div>       
+        </aside>
+    
+       
+    
+    
+<!-- Main Content -->
+        <main class="content">
+            <header>
+                <h2>Member Management</h2>
+                <div class="user-info">
+                    <img src="profile.jpg" alt="User">
+                    <div>
+                        <p class="name">Ayora Nuel</p>
+                        <p class="role">Super Admin</p>
+                    </div>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                </div>
+            </header>
+             <!-- Hamburger Menu (for small screens) -->
+        <div class="menu-toggle">
+            <input type="checkbox" id="menu-checkbox">
+            <label for="menu-checkbox" class="menu-icon">&#9776;</label>
+        </div>
+    
+        <!-- Mobile Dropdown Menu -->
+        <div class="dropdown">
+            <label for="menu-checkbox" class="close-icon">&times;</label>
+            <ul>
+                <li><a href="/"><i class="fas fa-users"></i> Members</a></li>
+                <li><a href="/min"><i class="fas fa-book"></i> Minutes</a></li>
+                <li><a href="/set"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="signin.html" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+
+ <!-- Greeting Section -->
+            <div class="under">
+                <div class="greeting">
+                    <h1>Hi Ayora!</h1>
+                    <p>Good afternoon</p>
+                </div>
+                <button class="create-btn">Create Member</button>
+            </div>
+
+ <!-- Stats Cards -->
+<section class="stats">
+    <div class="card yellow">
+        <div class="card-content">
+            <h3>Total Members</h3>
+            <p>2,500</p>
+            <span>+23% since last month</span>
+        </div>
+        <div class="icon-container">
+            <i class="fas fa-users"></i>
+        </div>
+    </div>
+    <div class="card green">
+        <div class="card-content">
+            <h3>Events</h3>
+            <p>400</p>
+            <span>+23% since last month</span>
+        </div>
+        <div class="icon-container">
+            <i class="fas fa-calendar-alt"></i>
+        </div>
+    </div>
+    <div class="card red">
+        <div class="card-content">
+            <h3>Minutes</h3>
+            <p>10</p>
+            <span>+23% since last month</span>
+        </div>
+        <div class="icon-container">
+            <i class="fas fa-book"></i>
+        </div>
+    </div>
+</section>
+
+
+            <!-- Members Section -->
+            <section class="members">
+                <div class="tabs">
+                    <button class="active">Members</button>
+                    <button>Projects</button>
+                </div>
+                <div class="members-header">
+                    <h2>Members</h2>
+                    <a href="members.html" class="view-all">
+                        View All <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="members-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email Address</th>
+                                <th>Position</th>
+                                <th>Date Registered</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="member-info">
+                                        <img src="profile.jpg" alt="Profile">
+                                        <span>Anjola Mary</span>
+                                    </div>
+                                </td>
+                                <td>Bennsamuel@gmail.com</td>
+                                <td>Member</td>
+                                <td>9/15/2023</td>
+                                <td><span class="status available">● Available</span></td>
+                                <td>
+                                    <div class="action-menu">
+                                        <i class="fas fa-ellipsis-v action-icon"></i>
+                                        <ul class="action-list">
+                                            <li class="delete-user">Delete User</li>
+                                            <li class="deactivate-user">Deactivate User</li>
+                                            <li class="view-profile">View Profile</li>
+                                            <li class="flag-star">Flag/Star User</li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="member-info">
+                                     <img src="profile.jpg" alt="Profile">
+                                     <span>Anjola Mary</span>
+                                    </div>
+                                </td>
+                                <td>Bennsamuel@gmail.com</td>
+                                <td>Member</td>
+                                <td>9/15/2023</td>
+                                <td><span class="status available">● Available</span></td>
+                                <td>
+                                    <div class="action-menu">
+                                        <i class="fas fa-ellipsis-v action-icon"></i>
+                                        <ul class="action-list">
+                                            <li class="delete-user">Delete User</li>
+                                            <li class="deactivate-user">Deactivate User</li>
+                                            <li class="view-profile">View Profile</li>
+                                            <li class="flag-star">Flag/Star User</li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            <tr>
+                                <td>
+                                    <div class="member-info">
+                                        <img src="profile.jpg" alt="Profile">
+                                        <span>Anjola Mary</span>
+                                    </div>
+                                </td>
+                                <td>Bennsamuel@gmail.com</td>
+                                <td>Member</td>
+                                <td>9/15/2023</td>
+                                <td><span class="status available">● Available</span></td>
+                                <td>
+                                    <div class="action-menu">
+                                        <i class="fas fa-ellipsis-v action-icon"></i>
+                                        <ul class="action-list">
+                                            <li class="delete-user">Delete User</li>
+                                            <li class="deactivate-user">Deactivate User</li>
+                                            <li class="view-profile">View Profile</li>
+                                            <li class="flag-star">Flag/Star User</li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+            </section>
+        </main>
+    </div>
+
+  <!-- Deactivation/Activation Modal -->
+<div id="statusModal" class="modals">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-header">
+            <i class="fas fa-trash-alt"></i>
+            <h3 id="modalTitle">You are about to deactivate <span id="memberName"></span></h3>
+        </div>
+        <p id="modalMessage">Are you sure you want to deactivate this member?</p>
+        <p>If Yes, Confirm</p>
+        <p>If you have changed your mind, click Cancel.</p>
+        <div class="modal-buttons">
+            <button id="cancelStatus" class="cancel-btn">Cancel</button>
+            <button id="confirmStatus" class="confirm-btn">Yes, Confirm</button>
+           
+        </div>
+    </div>
+</div>
+
+<!-- Registration Modal -->
+<div id="registerModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Create User</h3>
+        <p>This information would be used to create an admin user for Umuahia website.</p>
+
+        <form id="registerForm">
+            <label for="firstName">First name <span>*</span></label>
+            <input type="text" id="firstName" placeholder="Enter user's first name" required>
+
+            <label for="lastName">Last name <span>*</span></label>
+            <input type="text" id="lastName" placeholder="Enter user's last name" required>
+
+            <label for="email">Email Address <span>*</span></label>
+            <input type="email" id="email" placeholder="Enter user's email" required>
+
+            <label for="position">Position</label>
+            <select id="position">
+                <option value="">Select user's role</option>
+                <option value="admin">Admin</option>
+                <option value="editor">Editor</option>
+                <option value="viewer">Viewer</option>
+            </select>
+
+            <div class="modal-footer">
+                <button type="button" class="cancel-btn" onclick="closeModal()">Cancel</button>
+                <button type="submit" class="create-btn">Create User</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modals">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Are you sure you want to delete <span id="deleteMemberName"></span>?</h3>
+        <div class="modal-buttons">
+            <button class="cancel-btn">Cancel</button>
+            <button id="confirmDelete" class="confirm-btn">Yes, Delete</button>
+        </div>
+    </div>
+</div>
+
+<!-- Flag/Star Modal -->
+<div id="flagStarModal" class="modals">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="flag-star-content">
+            <img id="profilePic" src="profile.jpg" alt="User Profile">
+            <div>
+                <h3 id="flagStarName">User Name</h3>
+                <p id="flagStarEmail">user@example.com</p>
+            </div>
+            <div class="flag-star-icons">
+                <i class="fas fa-flag flag-icon"></i>
+                <div class="stars">
+                    <i class="fas fa-star star-icon"></i>
+                    <i class="fas fa-star star-icon"></i>
+                    <i class="fas fa-star star-icon"></i>
+                    <i class="fas fa-star star-icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast"></div>
+
+<!-- Success & Error Popups -->
+<div id="successPopup" class="popup success"> Sucess: User has been registered successfully!</div>
+<div id="errorPopup" class="popup error">Error: User registration failed!</div>
+
+
+<script src="../js/script.js"></script>
+        
+</body>
+</html>

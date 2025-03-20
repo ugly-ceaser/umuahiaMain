@@ -1,0 +1,64 @@
+{% extends "./_base.html" %}
+{% load static %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<form class="w-full md:w-3/4 p-5 space-y-3" method="post">
+    {% csrf_token %}
+
+    <div class="flex items-center flex-col space-y-3 w-full md:w-3/4 text-center mx-auto">
+        <a href="{% url 'app:home_page' %}"><img src="{% static 'img/logo.png' %}" alt="Logo" class="w-24"></a>
+        <h2 class="text-3xl font-semibold">Sign Up</h2>
+        <p class="text-sm">Register to join the association. Already Registered? <a href="{% url 'accounts:login' %}"
+                class="text-[#D0AC42] font-medium">Login</a></p>
+    </div>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="p-4 mb-4 border-l-4
+                    {% if 'error' in message.tags %}
+                        border-red-500 bg-red-100 text-red-800
+                    {% elif 'success' in message.tags %}
+                        border-green-500 bg-green-100 text-green-800
+                    {% else %}
+                        border-gray-500 bg-gray-100 text-gray-800
+                    {% endif %}">
+        <div class="flex justify-between items-center">
+            <span class="ml-2">{{ message }}</span>
+            <button type="button" class="ml-4 text-gray-500 hover:text-gray-700"
+                onclick="this.parentElement.parentElement.remove()">
+                &times;
+            </button>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+
+    <div class="space-y-2 w-full">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" class="w-full p-2 border border-gray-300 rounded-md" required>
+    </div>
+
+    <div class="space-y-2 w-full">
+        <label for="phone">Phone Number</label>
+        <input type="text" name="phone" id="phone" class="w-full p-2 border border-gray-300 rounded-md" required>
+    </div>
+
+    <div class="space-y-2 w-full">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="w-full p-2 border border-gray-300 rounded-md"
+            required>
+    </div>
+
+    <div class="space-y-2 w-full">
+        <label for="password2">Confirm Password</label>
+        <input type="password" name="password2" id="password2" class="w-full p-2 border border-gray-300 rounded-md"
+            required>
+    </div>
+
+    <button
+        class="w-full p-2 text-center bg-[#D0AC42] duration-300 hover:bg-primary hover:text-white rounded-md">Proceed</button>
+</form>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="GlamourGlam" />
+    <meta name="keywords" content="Ashion, unica, creative, html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Umuahia Ireland | {% block title %}{%endblock title %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <div class="w-full flex items-center gap-2 md:flex-row flex-col h-screen bg-[#F5F5F5]">
+        <!-- Left Image -->
+        <div class="md:w-1/2 w-full md:h-full h-[200px] p-2 bg-white">
+            <img src="{% static 'img/auth-img.png' %}" alt="" class="w-full h-full object-cover rounded-md">
+        </div>
+
+        <div class="w-full md:w-1/2 h-full flex items-center justify-center">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div>
+</body>
+
+</html>

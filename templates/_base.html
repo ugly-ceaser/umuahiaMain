@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="GlamourGlam" />
+    <meta name="keywords" content="Ashion, unica, creative, html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>
+        Umuahia Ireland | {% block title %}{%endblock title %}
+    </title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <header class="w-full bg-white h-20 sticky top-0 z-50 shadow-md" id="header">
+        <div class="container mx-auto flex justify-between items-center px-6 py-4">
+            <!-- Logo Section -->
+            <a href="" class="flex items-center space-x-2">
+                <img class="w-10 h-10 object-cover" src="{% static 'img/logo.png' %}" alt="Logo">
+
+                <h1 class='display-2'>Umuahia Community Ireland</h1>
+            </a>
+
+            <!-- Navigation (Desktop) -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <ul class="flex items-center space-x-6 font-medium text-lg">
+                    <li><a href="#" class="text-gray-700 hover:text-primary transition-all duration-300">Home</a></li>
+                    <li><a href="#about" class="text-gray-700 hover:text-primary transition-all duration-300">About
+                            Us</a></li>
+                    <li><a href="#gallery"
+                            class="text-gray-700 hover:text-primary transition-all duration-300">Gallery</a></li>
+                    <li><a href="#contact" class="text-gray-700 hover:text-primary transition-all duration-300">Contact
+                            Us</a></li>
+                    <li><a href="{% url 'accounts:login' %}"
+                            class="text-gray-700 hover:text-primary transition-all duration-300">Login</a></li>
+                </ul>
+
+                <!-- Donate Button -->
+                <a href="#"
+                    class="px-6 py-2 text-sm font-semibold text-white bg-primary rounded-lg shadow-md hover:bg-primary-dark transition-all duration-300">Donate</a>
+            </nav>
+
+            <!-- Mobile Menu Toggle (Hamburger) -->
+            <button class="md:hidden text-gray-600 focus:outline-none" id="menu-toggle">
+                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu (hidden by default) -->
+        <div class="md:hidden bg-white shadow-md w-full p-5 space-y-4" id="mobile-menu" style="display: none;">
+            <ul class="flex flex-col items-start space-y-4 text-lg font-medium text-gray-700">
+                <li><a href="#" class="hover:text-primary transition-all duration-300">Home</a></li>
+                <li><a href="#about" class="hover:text-primary transition-all duration-300">About Us</a></li>
+                <li><a href="#gallery" class="hover:text-primary transition-all duration-300">Gallery</a></li>
+                <li><a href="#contact" class="hover:text-primary transition-all duration-300">Contact Us</a></li>
+                <li><a href="{% url 'accounts:login' %}"
+                        class="hover:text-primary transition-all duration-300">Login</a></li>
+            </ul>
+            <a href="#"
+                class="block px-6 py-2 text-sm font-semibold text-white bg-primary rounded-lg shadow-md hover:bg-primary-dark transition-all duration-300">Donate</a>
+        </div>
+    </header>
+
+
+
+    {% block content %}
+    {% endblock content %}
+
+    <footer class="bg-gray-900 text-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <!-- Top Section -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Newsletter -->
+                <div class="space-y-4">
+                    <h3 class="text-white font-bold text-lg mb-4">NEWSLETTER SUBSCRIBE</h3>
+                    <p class="text-gray-400">Stay updated with our latest news and updates.</p>
+                    <div class="flex gap-2 mt-4">
+                        <input type="email" placeholder="Enter your email"
+                            class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500">
+                        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                            Send
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div class="flex flex-col items-center md:items-end space-y-4">
+                    <h3 class="text-white font-bold text-lg mb-4">FOLLOW US</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="p-2 bg-gray-800 rounded-full hover:bg-blue-600 transition-colors">
+                            <i class="fab fa-facebook text-lg w-6 h-6 text-center"></i>
+                        </a>
+                        <a href="#" class="p-2 bg-gray-800 rounded-full hover:bg-blue-600 transition-colors">
+                            <i class="fab fa-twitter text-lg w-6 h-6 text-center"></i>
+                        </a>
+                        <a href="#" class="p-2 bg-gray-800 rounded-full hover:bg-blue-600 transition-colors">
+                            <i class="fab fa-instagram text-lg w-6 h-6 text-center"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-8 border-t border-gray-800">
+                <!-- Logo -->
+                <div class="flex justify-center md:justify-start">
+                    <img src="{% static 'img/logo.png' %}" alt="Logo" class="h-16 w-auto opacity-90 hover:opacity-100 transition-opacity">
+
+                    <h1 class='display-2'>Umuahia Community Ireland</h1>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="text-center md:text-left space-y-2">
+                    <h4 class="text-white font-semibold mb-2">CONTACT US</h4>
+                    <p class="text-gray-400">helloumahia@gmail.com</p>
+                    <p class="text-gray-400">+234 8066 008 669</p>
+                    <button
+                        class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        Donate
+                    </button>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="text-center md:text-right">
+                    <h4 class="text-white font-semibold mb-4">QUICK LINKS</h4>
+                    <nav class="flex flex-col space-y-2">
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">Home</a>
+                        <a href="#about" class="text-gray-400 hover:text-blue-500 transition-colors">About</a>
+                        <a href="#gallery" class="text-gray-400 hover:text-blue-500 transition-colors">Gallery</a>
+                        <a href="#contact" class="text-gray-400 hover:text-blue-500 transition-colors">Contact</a>
+                        <a href="{% url 'accounts:login' %}"
+                            class="text-gray-400 hover:text-blue-500 transition-colors">Login</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
+                <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Toggle mobile menu visibility
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
+                mobileMenu.style.display = 'block';
+            } else {
+                mobileMenu.style.display = 'none';
+            }
+        });
+
+        $('#contactForm').on('submit', function (e) {
+            e.preventDefault();
+    
+            $.ajax({
+                url: "{% url 'send_email' %}",
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function (data) {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Your message has been sent successfully.',
+                        });
+                        $('#contactForm')[0].reset(); // Clear the form
+                    } else {
+
+                        console.log(data.error)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.error || 'Something went wrong!',
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred. Please try again.',
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
