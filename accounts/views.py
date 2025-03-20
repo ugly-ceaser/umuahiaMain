@@ -49,7 +49,7 @@ def user_register(request, role):
 
     # Redirect already logged-in users
     if request.user.is_authenticated:
-        return redirect(reverse("dashboard:dashboard"))
+        return redirect(reverse("user:dashboard"))
 
     if request.method == "POST":
         try:
@@ -118,34 +118,31 @@ def user_register(request, role):
 
 
 def resend_verification_email(request):
-    if request.method == "POST":
-        user = request.user
+    user = request.user
 
-        if user.is_verified:
-            messages.success(request, "Your account is already verified.")
-            return redirect(reverse("dashboard:dashboard"))
+    if user.is_verified:
+        messages.success(request, "Your account is already verified.")
+        return redirect(reverse("user:dashboard"))
 
-        # Generate new token
-        user.generate_verification_token()
+    # Generate new token
+    user.generate_verification_token()
 
-        # Prepare and send email
-        subject = f"📧 Verify Your {APP_NAME} Account"
-        verification_link = (
-            f"{APP_URL}/auth/verification/email/{user.verification_token}/"
-        )
-        context = {
-            "APP_NAME": APP_NAME,
-            "APP_URL": APP_URL,
-            "VERIFICATION_URL": verification_link,
-            "user": user,
-        }
-        body = render_to_string(f"{EMAIL_DIR}/welcome.html", context)
-        send_verification_email(user, subject, "", body)
+    # Prepare and send email
+    subject = f"📧 Verify Your {APP_NAME} Account"
+    verification_link = (
+        f"{APP_URL}/auth/verification/email/{user.verification_token}/"
+    )
+    context = {
+        "APP_NAME": APP_NAME,
+        "APP_URL": APP_URL,
+        "VERIFICATION_URL": verification_link,
+        "user": user,
+    }
+    body = render_to_string(f"{EMAIL_DIR}/welcome.html", context)
+    send_verification_email(user, subject, "", body)
 
-        messages.success(request, "A new verification email has been sent.")
-        return redirect(reverse("accounts:verificaton_email_sent"))
-
-    return redirect(reverse("dashboard:dashboard"))
+    messages.success(request, "A new verification email has been sent.")
+    return redirect(reverse("accounts:verificaton_email_sent"))
 
 
 def verificaton_email_sent(request):
