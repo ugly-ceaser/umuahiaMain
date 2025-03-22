@@ -22,3 +22,7 @@ APP_NAME = os.getenv("APP_NAME")
 APP_URL = os.getenv("APP_URL")
 Admin_Email = os.getenv("Admin_Email")
 
+SUPERUSER_EMAIL=os.getenv('admin@example.com')
+SUPERUSER_PASSWORD=os.getenv('admin123')
+SUPERUSER_PHONE_NUMBER = os.getenv('SUPERUSER_PHONE_NUMBER')
+
