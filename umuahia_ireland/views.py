@@ -42,7 +42,7 @@ def send_email(request):
             send_mail(
                 subject,
                 body,
-                DEFAULT_EMAIL,
+                email,
                 [admin_email],
                 html_message=None,
                 fail_silently=False,
