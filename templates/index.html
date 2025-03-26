@@ -1,0 +1,284 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<style>
+    .btn {
+        position: relative;
+        padding: 10px 4rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: white;
+        background: none;
+        border: 2px solid #99414A;
+        border-radius: 8px;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .liquid {
+        background: linear-gradient(#99414A 0 0) no-repeat calc(200% - var(--p, 0%)) 100% / 200% var(--p, 0.2em);
+        transition: 0.3s var(--t, 0s),
+            background-position 0.3s calc(0.3s - var(--t, 0s));
+    }
+
+    .liquid:hover {
+        --p: 100%;
+        --t: 0.3s;
+        color: #fff;
+    }
+</style>
+
+<section class="h-screen" id="hero">
+    <div class="flex items-center justify-center py-10 h-full flex-col">
+        <div class="flex items-center flex-col text-center space-y-5">
+            <h1 class="text-4xl md:text-6xl font-semibold md:font-extrabold text-white" data-aos="fade-up">Umuahia
+                <br> Community Ireland
+            </h1>
+            <h2 class="px-5 py-2 text-md text-white font-semibold rounded-lg bg-primary w-fit" data-aos="fade-up"
+                data-aos-delay="200">"Togetherness is power"</h2>
+            <p class="text-white w-full md:w-1/2" data-aos="fade-up" data-aos-delay="400">At Umuahia Community
+                Ireland CLG,
+                our mission is to empower and support African immigrants, particularly Nigerians, as they navigate
+                life in
+                Ireland. We are dedicated to fostering a strong, inclusive community by providing essential
+                resources,
+                guidance, and advocacy to ease the challenges of relocation.
+            </p>
+
+            <div class="flex items-center justify-between space-x-5" data-aos="fade-up" data-aos-delay="600">
+                <a href="{% url 'accounts:register' 'user' %}" class="btn liquid">
+                    <span>
+                        Register
+                    </span>
+                </a>
+                <a href="" class="btn liquid">
+                    <span>
+                        Donate
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="h-fit flex items-center justify-center" data-aos="fade-left" data-aos-duration="1200">
+    <div class="container flex sm:flex-row flex-col-reverse">
+        <div class="w-full md:w-1/2 space-y-2 p-10 flex items-center justify-center" data-aos="fade-right"
+            data-aos-delay="400">
+            <div class="w-full md:w-3/4 space-y-6">
+                <h1 class="text-4xl md:text-[3rem] font-semibold text-black mb-7 md:mb-16" data-aos="fade-up">About Us
+                </h1>
+                <p class="text-md" data-aos="fade-up" data-aos-delay="200">Umuahia Community Ireland is a registered
+                    organization that supports African immigrants, particularly Nigerians, as they settle and thrive
+                    in Ireland. Officially registered on 4th September 2024, our mission is to foster integration by
+                    providing cultural orientation, career development, and emotional support to individuals and
+                    families navigating their new environment.
+                    We believe that a strong community is the foundation for a successful and fulfilling life in
+                    a new country. Through our mentorship programs, networking events, and practical resources,
+                    we help immigrants understand Irish culture, access employment opportunities, and build meaningful
+                    social connections.
+                    Additionally, we advocate for fair access to essential services such as housing, education, and
+                    healthcare, ensuring that newcomers receive the support they need to flourish. By preserving our
+                    cultural identity while embracing our new home, we strive to create a vibrant, inclusive society
+                    where everyone feels a sense of belonging.
+                    Join us in building a stronger community—together, we thrive!
+                </p>
+                <a href=""
+                    class="px-10 py-2 rounded-sm border-2 border-primary duration-300 hover:bg-primary text-primary hover:text-white font-semibold text-sm block w-fit uppercase"
+                    data-aos="fade-up" data-aos-delay="400">Join Us Today</a>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 flex items-center justify-between" data-aos="zoom-in" data-aos-delay="200">
+            <img src="{% static 'img/map-woman.jpg' %}" alt="Map" class="w-full h-full object-cover rounded-br-[250px]">
+        </div>
+    </div>
+</section>
+
+<!-- Founder's Vision Section -->
+<section id="founder" class="h-fit flex items-center justify-center bg-gray-50 py-16" data-aos="fade-left"
+    data-aos-duration="1200">
+    <div class="container flex md:flex-row flex-col">
+        <!-- Founder's Image -->
+        <div class="w-full md:w-1/2 flex items-center justify-center" data-aos="zoom-in" data-aos-delay="200">
+            <img src="{% static 'img/map-woman.jpg' %}" alt="Founder"
+                class="w-full h-full object-cover rounded-br-[250px]">
+        </div>
+
+        <!-- Founder's Content -->
+        <div class="w-full md:w-1/2 space-y-2 p-10 flex items-center justify-center" data-aos="fade-right"
+            data-aos-delay="400">
+            <div class="w-full md:w-3/4 space-y-6">
+                <h1 class="text-4xl md:text-[3rem] font-semibold text-black mb-7 md:mb-16" data-aos="fade-up">Founder's
+                    Vision</h1>
+                <h2 class="text-2xl font-semibold text-gray-700" data-aos="fade-up" data-aos-delay="200">Co-Founders
+                </h2>
+                <p class="text-md text-gray-600" data-aos="fade-up" data-aos-delay="300">
+                    At Umuahia Community Ireland, our vision is rooted in the belief that every immigrant deserves a
+                    strong
+                    foundation, a supportive community, and equal opportunities to succeed in their new home. When I
+                    founded
+                    this organization, I envisioned a place where African immigrants, especially Nigerians, could find
+                    guidance,
+                    support, and a sense of belonging as they navigate life in Ireland.
+                    Moving to a new country comes with many challenges—understanding the culture, securing employment,
+                    accessing
+                    housing, and overcoming feelings of isolation. Through cultural orientation, career development, and
+                    emotional
+                    support, we aim to empower individuals and families to survive and thrive.
+                    Our community is more than just a network—it is a home away from home, where we celebrate our
+                    heritage while
+                    embracing the opportunities that Ireland offers. My vision is to see every immigrant confidently
+                    integrating
+                    into Irish society, achieving their dreams, and contributing meaningfully to their new communities.
+                    Together, we can build a future where no one feels alone in their journey—where unity, support, and
+                    success
+                    are within reach for all.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="h-fit flex items-center justify-center bg-white py-16" data-aos="fade-right"
+    data-aos-duration="1200">
+    <div class="container flex md:flex-row flex-col">
+        <!-- Testimonial Content -->
+        <div class="w-full md:w-1/2 space-y-2 p-10 flex items-center justify-center" data-aos="fade-left"
+            data-aos-delay="400">
+            <div class="w-full md:w-3/4 space-y-6">
+                <h1 class="text-4xl md:text-[3rem] font-semibold text-black mb-7 md:mb-16" data-aos="fade-up">
+                    Testimonials</h1>
+                <blockquote class="text-md text-gray-600 italic" data-aos="fade-up" data-aos-delay="200">
+                    “From being taken under until now, I have learned and grown so much. I thank each and every one of
+                    you for teaching and inspiring me.
+                    I’m excited about the future while I continue to be excited about all the things we will continue to
+                    accomplish here. Please remember
+                    that the work you all do here is very special. Every day you all help others. It has been an
+                    absolute honour!”
+                </blockquote>
+                <p class="text-md text-gray-800 font-semibold" data-aos="fade-up" data-aos-delay="300">
+                    <strong>Work Programmes Graduate</strong><br>
+                    Now working full-time with a law firm
+                </p>
+            </div>
+        </div>
+
+        <!-- Testimonial Image -->
+        <div class="w-full md:w-1/2 flex items-center justify-center" data-aos="zoom-in" data-aos-delay="200">
+            <img src="{% static 'img/map-woman.jpg' %}" alt="Testimonial"
+                class="w-full h-full object-cover rounded-tl-[250px]">
+        </div>
+    </div>
+</section>
+
+{% comment %} work {% endcomment %}
+
+<section id="change" class="h-fit flex items-center justify-center p-10 bg-red-50" data-aos="fade-up"
+    data-aos-duration="1000">
+    <div class="container flex md:flex-row flex-col">
+        <div class="w-full md:w-1/2 space-y-2 md:p-10 flex items-center justify-center" data-aos="fade-right"
+            data-aos-delay="200">
+            <div class="w-full md:w-3/4">
+                <h1 class="text-4xl md:text-[2rem] font-semibold text-black mb-3" data-aos="fade-up">To Make A Change
+                </h1>
+                <p data-aos="fade-up" data-aos-delay="400">
+                    et pellentesque porttitor odio dui. Erat sit platea vitae in parturient egestas etiam. Ornare vitae
+                    orci maecenas adipiscing dolor facilisis habitassbendu
+                </p>
+                <a href=""
+                    class="mt-10 md:mt-20 px-10 py-2 rounded-sm border-2 border-primary duration-300 hover:bg-primary text-primary hover:text-white font-semibold text-sm block w-fit uppercase"
+                    data-aos="fade-up" data-aos-delay="600">Donate</a>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 p-2 flex items-center justify-center" data-aos="zoom-in" data-aos-delay="800">
+            <img src="{% static 'img/make-a-change.png' %}" alt="Map" class="w-full object-cover">
+        </div>
+    </div>
+</section>
+
+<section id="gallery" class="h-fit flex items-center justify-center p-10" data-aos="fade-up" data-aos-duration="1200">
+    <div class="container space-y-6 text-center flex items-center flex-col">
+        <h1 class="text-4xl font-semibold text-[#4A4646]" data-aos="fade-up">Gallery</h1>
+        <p class="text-sm w-full md:w-3/4" data-aos="fade-up" data-aos-delay="200">
+            Allow yourself to be enveloped by the timeless elegance of eternal love: immerse your senses in our
+            carefully curated collection of exquisite works.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <img src="{% static 'img/map-woman.jpg' %}" alt="Gallery 1" data-aos="fade-up" data-aos-delay="400">
+            <img src="{% static 'img/moses.jpg' %}" alt="Gallery 3" data-aos="fade-up" data-aos-delay="600">
+            <img src="{% static 'img/map-woman.jpg' %}" alt="Gallery 3" data-aos="fade-up" data-aos-delay="800">
+            <img src="{% static 'img/onye.jpg' %}" alt="Gallery 3" data-aos="fade-up" data-aos-delay="1000">
+            <img src="{% static 'img/map-woman.jpg' %}" alt="Gallery 3" data-aos="fade-up" data-aos-delay="1200">
+            <img src="{% static 'img/drcoy.jpg' %}" alt="Gallery 6" data-aos="fade-up" data-aos-delay="1400">
+        </div>
+    </div>
+</section>
+
+<section class="h-fit flex items-center justify-center bg-red-50" id="contact" data-aos="fade-up"
+    data-aos-duration="1000">
+    <div class="container flex flex-col md:flex-row items-center justify-center min-h-screen">
+        <div class="md:w-1/2 w-full flex flex-col items-start md:p-10" data-aos="fade-right">
+            <h2 class="text-4xl font-bold text-[#99414A]" data-aos="fade-up">Get in Touch</h2>
+            <p class="text-gray-500 mt-2" data-aos="fade-up" data-aos-delay="200">
+                Fill out the form below or contact us by email or phone
+            </p>
+            <img src="{% static 'img/contact.png' %}" alt="Contact Us Image" class="mt-6 w-full h-auto"
+                data-aos="zoom-in" data-aos-delay="400" />
+        </div>
+
+        <div class="w-full md:w-1/2 p-3 flex items-center justify-center" data-aos="fade-left" data-aos-delay="600">
+            <form id="contactForm" class="space-y-6 w-3/4 bg-[#F8F0D0] p-8 rounded-sm shadow-sm">
+                {% csrf_token %}
+                <div>
+                    <label class="block text-gray-700">Name</label>
+                    <input type="text" name="name" placeholder="Enter your name"
+                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        data-aos="fade-up" />
+                </div>
+
+                <div>
+                    <label class="block text-gray-700">Surname</label>
+                    <input type="text" name="surname" placeholder="Enter your surname"
+                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        data-aos="fade-up" data-aos-delay="200" />
+                </div>
+
+                <div>
+                    <label class="block text-gray-700">Email</label>
+                    <input type="email" name="email" placeholder="Enter your email"
+                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        data-aos="fade-up" data-aos-delay="400" />
+                </div>
+
+                <div>
+                    <label class="block text-gray-700">Message</label>
+                    <textarea name="message" placeholder="Enter your message"
+                        class="w-full px-4 py-2 mt-2 border rounded-md h-32 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        data-aos="fade-up" data-aos-delay="600"></textarea>
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
+                    data-aos="fade-up" data-aos-delay="800">
+                    Send
+                </button>
+            </form>
+
+            <!-- Add a placeholder for success/error messages -->
+            <div id="message"></div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+{% endblock %}

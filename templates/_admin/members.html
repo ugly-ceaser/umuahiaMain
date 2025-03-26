@@ -1,0 +1,157 @@
+{% extends './_base.html' %}
+{% load static %}
+
+{% block page_title %}Member Management{% endblock page_title %}
+
+{% block content %}
+<div class="flex space-x-4 items-center">
+    <h3 class="text-md font-semibold text-[#5A605E]">Members</h3>
+    <i class="ti ti-chevron-right"></i>
+    <span class="px-2 py-[5px] rounded-sm bg-primary text-white text-xs font-bold">{{total_users}}</span>
+</div>
+
+<div class="flex items-center justify-between my-3">
+    <form class="px-4 py-2 rounded-md border flex w-3/4">
+        <span class="py-1 px-2 bg-[#F0F2F5] text-sm">
+            <i class="ti ti-search"></i>
+        </span>
+        <input type="search" class="w-full px-2 py-1 rounded-md bg-[#F0F2F5] text-sm outline-none"
+            placeholder="Search here...">
+    </form>
+
+    <div class="flex space-x-1 items-center">
+        <span class="text-md font-medium">Filter</span>
+        <i class="ti ti-filter text-sm"></i>
+    </div>
+</div>
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email Address</th>
+                <th>Position</th>
+                <th>Date Registered</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>
+                    <div class="member-info">
+                        <span>{{ user.first_name }} {{ user.last_name }}</span>
+                    </div>
+                </td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.position|default:"Member" }}</td>
+                <td>{{ user.date_joined|date:"n/j/Y" }}</td>
+                <td>
+                    {% if user.is_active %}
+                    <span class="p-2 rounded-full text-green-700 font-bold text-sm bg-menu">● Available</span>
+                    {% else %}
+                    <span class="p-2 rounded-full text-red-700 font-bold text-sm bg-menu">● Inactive</span>
+                    {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Deactivation/Activation Modal -->
+<div id="statusModal" class="modals">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-header">
+            <i class="fas fa-trash-alt"></i>
+            <h3 id="modalTitle">You are about to deactivate <span id="memberName"></span></h3>
+        </div>
+        <p id="modalMessage">Are you sure you want to deactivate this member?</p>
+        <p>If Yes, Confirm</p>
+        <p>If you have changed your mind, click Cancel.</p>
+        <div class="modal-buttons">
+            <button id="cancelStatus" class="cancel-btn">Cancel</button>
+            <button id="confirmStatus" class="confirm-btn">Yes, Confirm</button>
+
+        </div>
+    </div>
+</div>
+
+<!-- Registration Modal -->
+<div id="registerModal" class="modals">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Create User</h3>
+        <p>This information would be used to create an admin user for Umuahia website.</p>
+
+        <form id="registerForm">
+            <label for="firstName">First name <span>*</span></label>
+            <input type="text" id="firstName" placeholder="Enter user's first name" required>
+
+            <label for="lastName">Last name <span>*</span></label>
+            <input type="text" id="lastName" placeholder="Enter user's last name" required>
+
+            <label for="email">Email Address <span>*</span></label>
+            <input type="email" id="email" placeholder="Enter user's email" required>
+
+            <label for="position">Position</label>
+            <select id="position">
+                <option value="">Select user's role</option>
+                <option value="admin">Admin</option>
+                <option value="editor">Editor</option>
+                <option value="viewer">Viewer</option>
+            </select>
+
+            <div class="modal-footer">
+                <button type="button" class="cancel-btn"
+                    onclick="closeModal(this.closest('#registerModal'))">Cancel</button>
+                <button type="submit" class="create-btn">Create User</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modals">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Are you sure you want to delete <span id="deleteMemberName"></span>?</h3>
+        <div class="modal-buttons">
+            <button class="cancel-btn">Cancel</button>
+            <button id="confirmDelete" class="confirm-btn">Yes, Delete</button>
+        </div>
+    </div>
+</div>
+
+<!-- Flag/Star Modal -->
+<div id="flagStarModal" class="modals">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="flag-star-content">
+            <img id="profilePic" src="profile.jpg" alt="User Profile">
+            <div>
+                <h3 id="flagStarName">User Name</h3>
+                <p id="flagStarEmail">user@example.com</p>
+            </div>
+            <div class="flag-star-icons">
+                <i class="fas fa-flag flag-icon"></i>
+                <div class="stars">
+                    <i class="fas fa-star star-icon"></i>
+                    <i class="fas fa-star star-icon"></i>
+                    <i class="fas fa-star star-icon"></i>
+                    <i class="fas fa-star star-icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast"></div>
+
+<!-- Success & Error Popups -->
+<div id="successPopup" class="popup success"> Sucess: User has been registered successfully!</div>
+<div id="errorPopup" class="popup error">Error: User registration failed!</div>
+
+{% endblock content %}

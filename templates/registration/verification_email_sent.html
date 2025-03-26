@@ -1,0 +1,36 @@
+{% extends "./_base.html" %}
+{% load static %}
+
+{% block title %}Email Verification Sent{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="bg-white p-8 rounded-lg w-full flex items-center flex-col space-y-5">
+        <img src="{% static 'img/Message_and_nofitications.png' %}" alt="" class="w-48">
+        <h1 class="text-2xl font-bold text-gray-800">Verify Your Email</h1>
+        <p class="text-gray-600 font-bold text-2xl">
+            One Last Step
+        </p>
+        <p class="text-gray-600 text-center">
+            We've sent a verification link to your email:
+            <strong>
+                <a href="{% if 'gmail.com' in request.user.email %}https://mail.google.com{% elif 'yahoo.com' in request.user.email %}https://mail.yahoo.com{% elif 'outlook.com' in request.user.email %}https://outlook.live.com{% else %}#{% endif %}"
+                    class="text-blue-500 hover:underline" target="_blank">
+                    {{ request.user.email }}
+                </a>
+            </strong>.
+            Please check your inbox and click the link to verify your email address.
+        </p>
+
+        <a href="{% url 'accounts:resend_verification_email' %}"
+            class="w-fit px-10 bg-[#D0AC42] hover:bg-primary text-white font-semibold py-2 rounded-lg transition duration-200">Resend
+            Verification Email</a>
+
+        <div class="text-center">
+            <a href="{% url 'accounts:login' %}" class="text-blue-600 hover:underline">
+                Return to Login
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

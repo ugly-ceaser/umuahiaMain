@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to {{ APP_NAME }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .header img {
+            width: 120px;
+            /* Adjust logo size */
+        }
+
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .user-info {
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .user-info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .verify-btn {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Header with Logo -->
+        <div class="header">
+            <img src"{% static 'img/logo.png' %}" alt="Company Logo">
+        </div>
+
+        <!-- Welcome Message -->
+        <div class="content">
+            <h2>Welcome, {{ user.first_name }} {{ user.last_name }}! 🎉</h2>
+            <p>We're excited to have you on board at <strong>{{ APP_NAME }}</strong>.</p>
+
+            <!-- User Account Info -->
+            <div class="user-info">
+                <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Date Joined:</strong> {{ user.date_joined }}</p>
+            </div>
+
+            <!-- Verification Button -->
+            <p>Before you get started, please verify your email:</p>
+            <a href="{{ VERIFICATION_URL }}" class="verify-btn">Verify My Email</a>
+
+            <p>If you didn't sign up, please ignore this email.</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Need help? Contact our support team at <a
+                    href="mailto:support@yourplatform.com">support@yourplatform.com</a></p>
+            <p>© 2025 {{ APP_NAME }}. All rights reserved.</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

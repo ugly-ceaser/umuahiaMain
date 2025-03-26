@@ -1,0 +1,23 @@
+{% extends "./_base.html" %}
+{% load static %}
+
+{% block title %}Email Verification Successful{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="bg-white p-8 rounded-lg w-full flex items-center flex-col space-y-5">
+        <img src="{% static 'img/confirmed.png' %}" alt="" class="w-48">
+        <h1 class="text-2xl font-bold text-gray-800">Email Verified</h1>
+        <p class="text-gray-600 font-bold text-2xl">
+            You are all set
+        </p>
+        <p class="text-gray-600">
+            Your email has been successfully verified. You can now access your account.
+        </p>
+
+        <a href="{% url 'accounts:login' %}"
+            class="w-fit px-10 bg-[#D0AC42] hover:bg-primary text-white font-semibold py-2 rounded-lg transition duration-200">Login
+            Now</a>
+    </div>
+</div>
+{% endblock %}

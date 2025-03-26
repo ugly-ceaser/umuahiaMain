@@ -1,0 +1,101 @@
+{% extends "./_base.html" %}
+{% load static %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<form class="w-full md:w-3/4 p-5 space-y-3" method="post" onsubmit="return validateForm()">
+    {% csrf_token %}
+
+    <div class="flex items-center flex-col space-y-3 w-full md:w-3/4 text-center mx-auto">
+        <a href="{% url 'app:home_page' %}"><img src="{% static 'img/logo.png' %}" alt="Logo" class="w-24"></a>
+        <h2 class="text-3xl font-semibold">Sign Up</h2>
+        <p class="text-sm">Register to join the association. Already Registered? <a href="{% url 'accounts:login' %}"
+                class="text-[#D0AC42] font-medium">Login</a></p>
+    </div>
+
+    <div class="space-y-2 w-full">
+        <label for="fullName">Full Name</label>
+        <input type="text" name="fullName" id="fullName" class="w-full p-2 border border-gray-300 rounded-md" required>
+    </div>
+
+    <div class="space-y-2 w-full">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" class="w-full p-2 border border-gray-300 rounded-md" required>
+    </div>
+
+    <div class="space-y-2 w-full relative">
+        <label for="password">Password</label>
+        <div class="flex items-center justify-between">
+            <input type="password" name="password" id="password"
+                class="w-full p-2 border border-gray-300 rounded-md pr-10" required>
+            <i id="togglePassword" class="absolute right-1 top-10 text-gray-500 cursor-pointer ti ti-eye"></i>
+        </div>
+        <p id="passwordError" class="text-red-500 text-sm hidden">Password must be at least 8 characters, include
+            uppercase, lowercase, number, and special character.</p>
+    </div>
+
+    <div class="space-y-2 w-full relative">
+        <label for="password2">Confirm Password</label>
+        <div class="flex items-center justify-between">
+            <input type="password" name="password2" id="password2"
+                class="w-full p-2 border border-gray-300 rounded-md pr-10" required>
+            <i id="togglePassword2" class="absolute right-1 top-10 text-gray-500 cursor-pointer ti ti-eye"></i>
+        </div>
+        <p id="confirmError" class="text-red-500 text-sm hidden">Passwords do not match.</p>
+    </div>
+
+    <button
+        class="w-full p-2 text-center bg-[#D0AC42] duration-300 hover:bg-primary hover:text-white rounded-md">Proceed</button>
+</form>
+
+<script>
+    document.getElementById("togglePassword").addEventListener("click", function () {
+        const password = document.getElementById("password");
+        if (password.type === "password") {
+            password.type = "text";
+            this.classList.replace("ti-eye", "ti-eye-off");
+        } else {
+            password.type = "password";
+            this.classList.replace("ti-eye-off", "ti-eye");
+        }
+    });
+
+    document.getElementById("togglePassword2").addEventListener("click", function () {
+        const password2 = document.getElementById("password2");
+        if (password2.type === "password") {
+            password2.type = "text";
+            this.classList.replace("ti-eye", "ti-eye-off");
+        } else {
+            password2.type = "password";
+            this.classList.replace("ti-eye-off", "ti-eye");
+        }
+    });
+
+    function validateForm() {
+        const password = document.getElementById("password").value;
+        const password2 = document.getElementById("password2").value;
+        const passwordError = document.getElementById("passwordError");
+        const confirmError = document.getElementById("confirmError");
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+        let isValid = true;
+
+        if (!passwordRegex.test(password)) {
+            passwordError.classList.remove("hidden");
+            isValid = false;
+        } else {
+            passwordError.classList.add("hidden");
+        }
+
+        if (password !== password2) {
+            confirmError.classList.remove("hidden");
+            isValid = false;
+        } else {
+            confirmError.classList.add("hidden");
+        }
+
+        return isValid;
+    }
+</script>
+{% endblock %}
