@@ -17,7 +17,6 @@ from .config import (
     Admin_Email,
     SUPERUSER_EMAIL,
     SUPERUSER_PASSWORD,
-    SUPERUSER_PHONE_NUMBER,
 )
 
 APP_NAME = APP_NAME
@@ -77,27 +76,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "umuahia_ireland.wsgi.application"
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": DB_NAME,
-        "USER": DB_USER,
-        "PASSWORD": DB_PASSWORD,
-        "HOST": DB_HOST,
-        "PORT": DB_PORT,
-    }
-}
-
 # DATABASES = {
-#     "default": dj_database_url.config(
-#         default=os.getenv(
-#             "DATABASE_URL",
-#             "postgresql://umuahiadb_user:mkbdjPKor0UIujt3uzAmCl3zbJmksarX@dpg-cv6migtumphs738btq4g-a.oregon-postgres.render.com/umuahiadb",
-#         ),
-#         conn_max_age=600,
-#         ssl_require=True,  # Render requires SSL for connections
-#     )
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": DB_NAME,
+#         "USER": DB_USER,
+#         "PASSWORD": DB_PASSWORD,
+#         "HOST": DB_HOST,
+#         "PORT": DB_PORT,
+#     }
 # }
+
+DATABASES = {
+    "default": dj_database_url.config(
+        default=os.getenv(
+            "DATABASE_URL",
+            "postgresql://umuahiadb_user:mkbdjPKor0UIujt3uzAmCl3zbJmksarX@dpg-cv6migtumphs738btq4g-a.oregon-postgres.render.com/umuahiadb",
+        ),
+        conn_max_age=600,
+        ssl_require=True,  # Render requires SSL for connections
+    )
+}
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -149,6 +148,4 @@ EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 
 
 SUPERUSER_EMAIL = (SUPERUSER_EMAIL,)
-
 SUPERUSER_PASSWORD = (SUPERUSER_PASSWORD,)
-SUPERUSER_PHONE_NUMBER = SUPERUSER_PHONE_NUMBER
