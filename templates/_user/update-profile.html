@@ -17,13 +17,13 @@
         <div class="space-y-1">
             <label for="fullName">Full Name</label>
             <input type="text" name="fullName" id="fullName" class="w-full border border-gray-300 rounded-sm px-3 py-2"
-                value="{{ request.user.full_name }}" />
+                value="{{ request.user.first_name }} {{ request.user.last_name }}" />
         </div>
 
         <div class="space-y-1">
             <label for="email">Email</label>
             <input type="email" name="email" id="email" class="w-full border border-gray-300 rounded-sm px-3 py-2"
-                value="{{ request.user.email }}" />
+                value="{{ request.user.email }}" readonly />
         </div>
 
         <div class="space-y-1 col-span-2">
@@ -32,13 +32,7 @@
                 value="{{ request.user.about }}"></textarea>
         </div>
 
-        <div class="space-y-1">
-            <label for="phone">Phone</label>
-            <input type="phone" name="phone" id="phone" class="w-full border border-gray-300 rounded-sm px-3 py-2"
-                value="{{ request.user.phone }}" />
-        </div>
-
-        <div class="space-y-1">
+        <div class="space-y-1 col-span-2">
             <label for="location">Location</label>
             <input type="location" name="location" id="location"
                 class="w-full border border-gray-300 rounded-sm px-3 py-2" value="{{ request.user.location }}" />

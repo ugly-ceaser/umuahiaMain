@@ -54,36 +54,38 @@ def user_register(request, role):
     if request.method == "POST":
         try:
             # Retrieve data from POST request
-            phone_number = request.POST.get("phone")
+            full_name = request.POST.get("fullName").strip()
             email = request.POST.get("email")
             password = request.POST.get("password")
             confirmPassword = request.POST.get("password2")
 
-            # Hash the password
-            hashed_password = make_password(password)
+            # Validate full name (must contain first and last name)
+            name_parts = full_name.split()
+            if len(name_parts) < 2:
+                messages.error(request, "Please enter both first name and last name.")
+
+            first_name, last_name = name_parts[0], " ".join(name_parts[1:])
 
             # Check if email already exists
             if CustomUser.objects.filter(email=email).exists():
-                messages.error(request, message="Email already exists!")
-
-            # Check if phone number already exists
-            if CustomUser.objects.filter(phone_number=phone_number).exists():
                 messages.error(
                     request,
-                    message="Phone number is already linked to a different account!",
+                    "The email you entered is already associated with an account. Please use another email.",
                 )
-                return render(request, "regist`ration/register.html")
 
             # Check if passwords match
             if password != confirmPassword:
-                messages.error(request, message="Passwords do not match!")
-                return render(request, "registration/register.html")
+                messages.error(request, message="Passwords entered do not match!")
 
             with transaction.atomic():
+                # Hash the password
+                hashed_password = make_password(password)
+
                 # Create a new user
                 new_user = CustomUser.objects.create(
                     email=email,
-                    phone_number=phone_number,
+                    first_name=first_name,
+                    last_name=last_name,
                     password=hashed_password,
                     is_superuser=role == "admin",
                     is_staff=role == "admin",
@@ -110,10 +112,8 @@ def user_register(request, role):
             return redirect(reverse("accounts:verificaton_email_sent"))
 
         except Exception as e:
-            print(e)
-            messages.error(
-                request, message=f"An error occurred during registration! {e}"
-            )
+            print(f"Error occurred while registering, {e}")
+            messages.error(request, message=f"An error occurred during registration!")
     return render(request, "registration/register.html")
 
 
@@ -129,9 +129,7 @@ def resend_verification_email(request):
 
     # Prepare and send email
     subject = f"📧 Verify Your {APP_NAME} Account"
-    verification_link = (
-        f"{APP_URL}/auth/verification/email/{user.verification_token}/"
-    )
+    verification_link = f"{APP_URL}/auth/verification/email/{user.verification_token}/"
     context = {
         "APP_NAME": APP_NAME,
         "APP_URL": APP_URL,

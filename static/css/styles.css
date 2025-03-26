@@ -1638,7 +1638,26 @@ video {
   background-size: cover;
   background-position: center right;
   background-attachment: fixed;
+  position: relative;
+  color: white; /* Ensure text is bright */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Improve readability */
 }
+
+#hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+#hero * {
+  position: relative;
+  z-index: 1;
+}
+
 
 .after\:absolute::after{
   content: var(--tw-content);

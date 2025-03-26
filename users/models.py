@@ -12,20 +12,18 @@ from django.utils.crypto import get_random_string
 class UserProfileManager(BaseUserManager):
     """Manager for user profiles"""
 
-    def create_user(self, email, phone_number, password=None, **extra_fields):
+    def create_user(self, email, password=None, **extra_fields):
         """Create a new user profile"""
         if not email:
             raise ValueError("User must have an email address")
-        if not phone_number:
-            raise ValueError("User must have a phone number")
 
         email = self.normalize_email(email)
-        user = self.model(email=email, phone_number=phone_number, **extra_fields)
+        user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, phone_number, password=None, **extra_fields):
+    def create_superuser(self, email, password=None, **extra_fields):
         """Create a new superuser profile"""
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_staff", True)
@@ -36,13 +34,12 @@ class UserProfileManager(BaseUserManager):
         if extra_fields.get("is_staff") is not True:
             raise ValueError("Superuser must have is_staff=True.")
 
-        return self.create_user(email, phone_number, password, **extra_fields)
+        return self.create_user(email, password, **extra_fields)
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     email = models.EmailField(max_length=255, unique=True)
-    phone_number = models.CharField(max_length=20, default="")
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
     position = models.CharField(
@@ -64,7 +61,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = UserProfileManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["phone_number"]
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}".strip()

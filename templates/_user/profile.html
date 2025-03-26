@@ -41,7 +41,11 @@
         </p>
         <h3 class="tet-3xl uppercase font-semibold">About Me</h3>
         <p class="text-sm">
+            {% if request.user.about %}
             {{ request.user.about }}
+            {% else %}
+            -----
+            {% endif %}
         </p>
     </div>
 </div>
