@@ -27,3 +27,11 @@
     background-position: center right;
     background-attachment: fixed;
 }
+
+#hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+}
+

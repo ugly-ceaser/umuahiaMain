@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="../css/user.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
 
     <div class="dashboard">
@@ -16,13 +18,21 @@
                 <img src="../img/logo.png" alt="Logo">
             </div>
             <ul class="menu">
-                <a href="/"><li class="menu-item active"><i class="fas fa-users"></i> Profile</li></a>
-                <a href="/min"><li class="menu-item"><i class="fas fa-book"></i> Minutes</li></a>
+                <a href="/">
+                    <li class="menu-item active"><i class="fas fa-users"></i> Profile</li>
+                </a>
+                <a href="/min">
+                    <li class="menu-item"><i class="fas fa-book"></i> Minutes</li>
+                </a>
             </ul>
             <div class="bottom-menu">
-                <a href="/set"><li class="menu-item"><i class="fas fa-cog"></i> Settings</li></a>
-                <a href="signin.html"><li class="menu-item logout"><i class="fas fa-sign-out-alt"></i> Logout</li></a>
-            </div>            
+                <a href="/set">
+                    <li class="menu-item"><i class="fas fa-cog"></i> Settings</li>
+                </a>
+                <a href="signin.html">
+                    <li class="menu-item logout"><i class="fas fa-sign-out-alt"></i> Logout</li>
+                </a>
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -63,40 +73,41 @@
                 </div>
             </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const toast = document.getElementById("toast");
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const toast = document.getElementById("toast");
 
-            function showToast(title, message, isSuccess = true) {
-                const toastTitle = document.getElementById("toast-title");
-                const toastMessage = document.getElementById("toast-message");
-                const toastIcon = document.getElementById("toast-icon");
+                    function showToast(title, message, isSuccess = true) {
+                        const toastTitle = document.getElementById("toast-title");
+                        const toastMessage = document.getElementById("toast-message");
+                        const toastIcon = document.getElementById("toast-icon");
 
-                toastTitle.textContent = title;
-                toastMessage.textContent = message;
+                        toastTitle.textContent = title;
+                        toastMessage.textContent = message;
 
-                if (isSuccess) {
-                    toast.classList.remove("error");
-                    toast.classList.add("success");
-                    toastIcon.src = "../img/checks.png";
-                } else {
-                    toast.classList.remove("success");
-                    toast.classList.add("error");
-                    toastIcon.src = "../img/errors.png"; 
-                }
+                        if (isSuccess) {
+                            toast.classList.remove("error");
+                            toast.classList.add("success");
+                            toastIcon.src = "../img/checks.png";
+                        } else {
+                            toast.classList.remove("success");
+                            toast.classList.add("error");
+                            toastIcon.src = "../img/errors.png";
+                        }
 
-                toast.classList.add("show");
+                        toast.classList.add("show");
 
-                setTimeout(() => {
-                    hideToast();
-                }, 5000);
-            }
+                        setTimeout(() => {
+                            hideToast();
+                        }, 5000);
+                    }
 
-            function hideToast() {
-                toast.classList.remove("show");
-            }
-        });
-    </script>
+                    function hideToast() {
+                        toast.classList.remove("show");
+                    }
+                });
+            </script>
 
 </body>
+
 </html>

@@ -24,17 +24,24 @@
                 <!-- Navigation Links -->
                 <ul class="space-y-2">
                     <li>
-                        <a href="{% url 'admin:dashboard_members' %}"
-                           class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-700 hover:text-white transition duration-200 font-medium">
+                        <a href="{% url 'admin:dashboard' %}"
+                            class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-700 hover:text-white transition duration-200 font-medium">
                             <i class="fas fa-users"></i>
                             <span>Members</span>
                         </a>
                     </li>
                     <li>
                         <a href="{% url 'admin:minuites' %}"
-                           class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-700 hover:text-white transition duration-200 font-medium">
+                            class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-700 hover:text-white transition duration-200 font-medium">
                             <i class="fas fa-book"></i>
                             <span>Minutes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin:financial_checkbook' %}"
+                            class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-700 hover:text-white transition duration-200 font-medium">
+                            <i class="fas fa-book"></i>
+                            <span>Financial Checkbook</span>
                         </a>
                     </li>
                 </ul>
@@ -45,14 +52,14 @@
                 <ul class="space-y-2">
                     <li>
                         <a href="{% url 'admin:settings' %}"
-                           class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-700 hover:text-white transition duration-200 font-medium">
+                            class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-700 hover:text-white transition duration-200 font-medium">
                             <i class="fas fa-gears"></i>
                             <span>Settings</span>
                         </a>
                     </li>
                     <li>
                         <a href="{% url 'accounts:logout' %}"
-                           class="flex items-center gap-3 px-4 py-3 rounded-lg bg-red-700 hover:bg-red-800 text-white font-bold transition duration-200">
+                            class="flex items-center gap-3 px-4 py-3 rounded-lg bg-red-700 hover:bg-red-800 text-white font-bold transition duration-200">
                             <i class="fas fa-door-open"></i>
                             <span>Logout</span>
                         </a>
@@ -71,7 +78,8 @@
                 <div class="relative">
                     <!-- Profile Button (User Info) -->
                     <button id="profileDropdownBtn" class="flex items-center space-x-3 focus:outline-none group">
-                        <img src="https://media.istockphoto.com/id/2151669184/vector/vector-flat-illustration-in-grayscale-avatar-user-profile-person-icon-gender-neutral.jpg?s=612x612&w=0&k=20&c=UEa7oHoOL30ynvmJzSCIPrwwopJdfqzBs0q69ezQoM8=" alt="User" class="w-10 h-10 rounded-full border border-gray-300">
+                        <img src="https://media.istockphoto.com/id/2151669184/vector/vector-flat-illustration-in-grayscale-avatar-user-profile-person-icon-gender-neutral.jpg?s=612x612&w=0&k=20&c=UEa7oHoOL30ynvmJzSCIPrwwopJdfqzBs0q69ezQoM8="
+                            alt="User" class="w-10 h-10 rounded-full border border-gray-300">
                         <div class="text-left">
                             <p class="text-lg font-bold text-gray-800">
                                 {% if request.user.first_name %}
@@ -86,7 +94,8 @@
                     </button>
 
                     <!-- Dropdown Menu (Hidden by Default) -->
-                    <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg hidden z-50">
+                    <div id="profileDropdown"
+                        class="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg hidden z-50">
                         <ul class="py-2 text-gray-700">
                             <li>
                                 <a href="{% url 'admin:settings' %}" class="block px-4 py-2 hover:bg-gray-100">
@@ -99,7 +108,8 @@
                                 </a>
                             </li>
                             <li class="border-t">
-                                <a href="{% url 'accounts:logout' %}" class="block px-4 py-2 text-red-600 hover:bg-gray-100">
+                                <a href="{% url 'accounts:logout' %}"
+                                    class="block px-4 py-2 text-red-600 hover:bg-gray-100">
                                     <i class="fas fa-sign-out-alt mr-2"></i> Logout
                                 </a>
                             </li>
@@ -127,7 +137,6 @@
                     e.stopPropagation();  // Prevent dropdown close when clicking inside it
                 });
             </script>
-
 
             {% block content %}
             {% endblock %}

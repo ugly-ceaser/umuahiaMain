@@ -4,66 +4,34 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<style>
-    .btn {
-        position: relative;
-        padding: 10px 4rem;
-        font-size: 1rem;
-        font-weight: 600;
-        color: white;
-        background: none;
-        border: 2px solid #99414A;
-        border-radius: 8px;
-        cursor: pointer;
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-
-    .liquid {
-        background: linear-gradient(#99414A 0 0) no-repeat calc(200% - var(--p, 0%)) 100% / 200% var(--p, 0.2em);
-        transition: 0.3s var(--t, 0s),
-            background-position 0.3s calc(0.3s - var(--t, 0s));
-    }
-
-    .liquid:hover {
-        --p: 100%;
-        --t: 0.3s;
-        color: #fff;
-    }
-</style>
-
-<section class="h-screen" id="hero">
-    <div class="flex items-center justify-center py-10 h-full flex-col">
+<section class="h-screen relative" id="hero">
+    <div class="flex items-center justify-center py-10 h-full flex-col relative z-10">
         <div class="flex items-center flex-col text-center space-y-5">
-            <h1 class="text-4xl md:text-6xl font-semibold md:font-extrabold text-white" data-aos="fade-up">Umuahia
-                <br> Community Ireland
+            <h1 class="text-4xl md:text-6xl font-semibold md:font-extrabold text-white" data-aos="fade-up">
+                Umuahia <br> Community Ireland
             </h1>
             <h2 class="px-5 py-2 text-md text-white font-semibold rounded-lg bg-primary w-fit" data-aos="fade-up"
                 data-aos-delay="200">"Togetherness is power"</h2>
-            <p class="text-white w-full md:w-1/2" data-aos="fade-up" data-aos-delay="400">At Umuahia Community
-                Ireland CLG,
-                our mission is to empower and support African immigrants, particularly Nigerians, as they navigate
-                life in
-                Ireland. We are dedicated to fostering a strong, inclusive community by providing essential
-                resources,
-                guidance, and advocacy to ease the challenges of relocation.
+            <p class="text-white w-full md:w-1/2" data-aos="fade-up" data-aos-delay="400">
+                At Umuahia Community Ireland CLG, our mission is to empower and support African immigrants,
+                particularly Nigerians, as they navigate life in Ireland. We are dedicated to fostering a strong,
+                inclusive community by providing essential resources, guidance, and advocacy to ease the challenges
+                of relocation.
             </p>
 
             <div class="flex items-center justify-between space-x-5" data-aos="fade-up" data-aos-delay="600">
-                <a href="{% url 'accounts:register' 'user' %}" class="btn liquid">
-                    <span>
-                        Register
-                    </span>
+                <a href="{% url 'accounts:register' 'user' %}"
+                    class="bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+                    Register
                 </a>
-                <a href="" class="btn liquid">
-                    <span>
-                        Donate
-                    </span>
+                <a href="" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition">
+                    Donate
                 </a>
             </div>
         </div>
     </div>
 </section>
+
 
 <section id="about" class="h-fit flex items-center justify-center" data-aos="fade-left" data-aos-duration="1200">
     <div class="container flex sm:flex-row flex-col-reverse">

@@ -23,14 +23,12 @@ def create_default_admin(sender, **kwargs):
     User = get_user_model()
 
     try:
-        admin_email = SUPERUSER_EMAIL
-        admin_password = SUPERUSER_PASSWORD
 
         if not User.objects.filter(is_superuser=True).exists():
             User.objects.create_superuser(
-                email=admin_email, password=admin_password, is_verified=True
+                email=SUPERUSER_EMAIL, password=SUPERUSER_PASSWORD, is_verified=True
             )
-            print(f"✅ Admin account created: {admin_email}")
+            print(f"✅ Admin account created: {SUPERUSER_EMAIL}")
         else:
             print("✅ Admin account already exists. Skipping creation.")
 

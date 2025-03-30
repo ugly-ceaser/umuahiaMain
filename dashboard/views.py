@@ -3,9 +3,7 @@ from .decorators import validation_required
 from django.urls import reverse
 from users.models import CustomUser
 from django.contrib import messages
-from app.models import Minuites
-from io import BytesIO
-from reportlab.pdfgen import canvas
+from app.models import Minuites, FinancialCheckbook
 from django.http import HttpResponse
 
 
@@ -15,41 +13,43 @@ def dashboard(request):
 
 
 def minuites(request):
-    # Fetch all the minutes from the database
     minutes_list = Minuites.objects.all()
 
     if request.method == "POST" and "download_minute" in request.POST:
         minute_id = request.POST.get("minute_id")
         minute = get_object_or_404(Minuites, id=minute_id)
 
-        # Generate PDF dynamically
-        buffer = BytesIO()
-        p = canvas.Canvas(buffer)
-        p.setFont("Helvetica-Bold", 16)
-        p.drawString(100, 800, f"Title: {minute.title}")
+        # Return the uploaded file instead of generating a new PDF
+        if minute.minuites:
+            response = HttpResponse(
+                minute.minuites, content_type="application/octet-stream"
+            )
+            response["Content-Disposition"] = (
+                f'attachment; filename="{minute.minuites.name}"'
+            )
+            return response
 
-        p.setFont("Helvetica", 12)
-        p.drawString(100, 780, f"Date: {minute.date.strftime('%B %d, %Y')}")
-
-        # Add minutes content with text wrapping
-        p.setFont("Helvetica", 11)
-        text = minute.minuites
-        text_lines = text.split("\n")
-        y_position = 760
-        for line in text_lines:
-            p.drawString(100, y_position, line)
-            y_position -= 20
-
-        p.showPage()
-        p.save()
-
-        buffer.seek(0)
-        response = HttpResponse(buffer, content_type="application/pdf")
-        response["Content-Disposition"] = f'attachment; filename="{minute.title}.pdf"'
-        return response
-
-    # Render the page with the minutes list
     return render(request, "_user/minuites.html", {"minutes": minutes_list})
+
+
+def checkbooks(request):
+    checkbook_list = FinancialCheckbook.objects.all()
+
+    if request.method == "POST" and "download_checkbook" in request.POST:
+        checkbook_id = request.POST.get("checkbook_id")
+        checkbook = get_object_or_404(FinancialCheckbook, id=checkbook_id)
+
+        # Return the uploaded checkbook file
+        if checkbook.checkbook:
+            response = HttpResponse(
+                checkbook.checkbook, content_type="application/octet-stream"
+            )
+            response["Content-Disposition"] = (
+                f'attachment; filename="{checkbook.checkbook.name}"'
+            )
+            return response
+
+    return render(request, "_user/checkbooks.html", {"checkbooks": checkbook_list})
 
 
 @validation_required

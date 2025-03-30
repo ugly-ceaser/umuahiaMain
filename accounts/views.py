@@ -24,7 +24,7 @@ def validation_required(view_func):
         # Check if the user is authenticated
         if request.user.is_authenticated:
             if request.user.is_superuser or request.user.is_staff:
-                return redirect(reverse("admin:dashboard_members"))
+                return redirect(reverse("admin:dashboard"))
             return redirect(reverse("user:dashboard"))
         # If all checks pass, call the view function
         return view_func(request, *args, **kwargs)
@@ -184,13 +184,8 @@ def verify_account(request, token):
 def user_login(request):
     """
     Handles user login. This function retrieves the email and password from the POST request,
-    checks if the user exists and the password is correct, and logs in the user if successful.
-
-    Parameters:
-    request (HttpRequest): The HTTP request object containing POST data.
-
-    Returns:
-    HttpResponse: Renders the login page on failure or redirects to the dashboard on success.
+    checks if the user exists, if they are active, and if the password is correct, and logs in
+    the user if successful.
     """
     # Redirect already logged-in users
     if request.user.is_authenticated:
@@ -201,15 +196,24 @@ def user_login(request):
             # Retrieve data from POST request
             email = request.POST.get("email")
             password = request.POST.get("password")
-
             print(f"Email: {email} Password: {password}")
 
             # Get the user by email
             user = get_object_or_404(CustomUser, email=email)
-            if user is not None and user.check_password(password):
-                login(request, user)  # Log the user in
+
+            # Check if password is correct
+            if user.check_password(password):
+                # If account is deactivated, show error and do not log in
+                if not user.is_active:
+                    messages.error(
+                        request,
+                        message="Account has been deactivated! Reach out to support.",
+                    )
+                    return render(request, "registration/login.html")
+                # Otherwise, log the user in
+                login(request, user)
                 if user.is_superuser or user.is_staff:
-                    return redirect(reverse("admin:dashboard_members"))
+                    return redirect(reverse("admin:dashboard"))
                 else:
                     return redirect(reverse("user:dashboard"))
             else:

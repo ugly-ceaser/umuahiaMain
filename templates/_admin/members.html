@@ -26,37 +26,38 @@
 </div>
 
 <div>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email Address</th>
-                <th>Position</th>
-                <th>Date Registered</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-            <tr>
-                <td>
-                    <div class="member-info">
-                        <span>{{ user.first_name }} {{ user.last_name }}</span>
-                    </div>
-                </td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.position|default:"Member" }}</td>
-                <td>{{ user.date_joined|date:"n/j/Y" }}</td>
-                <td>
-                    {% if user.is_active %}
-                    <span class="p-2 rounded-full text-green-700 font-bold text-sm bg-menu">● Available</span>
-                    {% else %}
-                    <span class="p-2 rounded-full text-red-700 font-bold text-sm bg-menu">● Inactive</span>
-                    {% endif %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>
+                <div class="member-info">
+                    <span>{{ user.first_name }} {{ user.last_name }}</span>
+                </div>
+            </td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.position|default:"Member" }}</td>
+            <td>{{ user.date_joined|date:"n/j/Y" }}</td>
+            <td>
+                {% if user.is_active %}
+                <span class="p-2 rounded-full text-green-700 font-bold text-sm bg-menu">● Available</span>
+                {% else %}
+                <span class="p-2 rounded-full text-red-700 font-bold text-sm bg-menu">● Inactive</span>
+                {% endif %}
+            </td>
+            <td>
+                <button class="deactivate-btn text-sm text-yellow-600 font-semibold"
+                    onclick="openStatusModal('{{ user.first_name }} {{ user.last_name }}')">
+                    Deactivate
+                </button>
+                <button class="delete-btn text-sm text-red-600 font-semibold"
+                    onclick="openDeleteModal('{{ user.first_name }} {{ user.last_name }}')">
+                    Delete
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
 </div>
 
 <!-- Deactivation/Activation Modal -->
@@ -153,5 +154,8 @@
 <!-- Success & Error Popups -->
 <div id="successPopup" class="popup success"> Sucess: User has been registered successfully!</div>
 <div id="errorPopup" class="popup error">Error: User registration failed!</div>
+
+
+
 
 {% endblock content %}

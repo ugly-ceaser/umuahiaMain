@@ -1,7 +1,8 @@
 {% extends './_base.html' %}
 {% load static %}
+{% load humanize %}
 
-{% block page_title %}Minuites Management{% endblock page_title %}
+{% block page_title %}Financial Checkbook{% endblock page_title %}
 
 {% block content %}
 
@@ -17,37 +18,35 @@
     </div>
     <a href="#" class="px-7 py-3 bg-secondary hover:bg-primary duration-300 text-white font-semibold text-sm rounded-md"
         id="openCreateMinutes">Create
-        Minuite</a>
+        Checkbook</a>
 </div>
 
 <section class="p-0">
-
-    {% if minuites %}
-    <table>
+    {% if checkbook_list %}
+    <table class="w-full border-collapse border border-gray-300">
         <thead>
-            <tr>
-                <th>Title</th>
-                <th>Date</th>
-                <th>Created At</th>
-                <th></th>
+            <tr class="bg-gray-100">
+                <th class="border border-gray-300 px-4 py-2">Transaction Type</th>
+                <th class="border border-gray-300 px-4 py-2">Amount</th>
+                <th class="border border-gray-300 px-4 py-2">Description</th>
+                <th class="border border-gray-300 px-4 py-2">Date</th>
+                <th class="border border-gray-300 px-4 py-2">Created At</th>
+                <th class="border border-gray-300 px-4 py-2">Actions</th>
             </tr>
         </thead>
         <tbody>
-            {% for minuite in minuites %}
+            {% for checkbook in checkbook_list %}
             <tr>
-                <td>{{ minuite.title }}</td>
-                <td>{{ minuite.date|date:"n/j/Y" }}</td>
-                <td>{{ minuite.created_at|date:"n/j/Y" }}</td>
-                <td class="flex">
-                    <a href="{% url 'admin:edit_minuites' minuite.id %}"
-                        class="reset-btn text-sm text-white font-semibold bg-blue-600 hover:bg-blue-700 px-2 py-1 rounded-sm">
-                        <i class="ti ti-eye"></i>
-                        View
-                    </a>
-                    <button
-                        class="delete-btn text-sm text-white font-semibold bg-red-600 hover:bg-red-700 px-2 py-1 rounded-sm"
-                        onclick="openDeleteModal('{{ minuite.id }}', '{{ minuite.title }}')">
-                        <i class="ti ti-trash"></i>
+                <td class="border border-gray-300 px-4 py-2">{{ checkbook.get_transaction_type_display }}</td>
+                <td class="border border-gray-300 px-4 py-2">${{ checkbook.amount|intcomma }}</td>
+                <td class="border border-gray-300 px-4 py-2">{{ checkbook.description|default:"N/A" }}</td>
+                <td class="border border-gray-300 px-4 py-2">{{ checkbook.date|date:"n/j/Y" }}</td>
+                <td class="border border-gray-300 px-4 py-2">{{ checkbook.created_at|date:"n/j/Y H:i A" }}</td>
+                <td class="border border-gray-300 px-4 py-2 flex space-x-2">
+                    <a href="{% url 'admin:edit_checkbook' checkbook.id %}"
+                        class="bg-blue-600 text-white px-2 py-1 rounded-sm hover:bg-blue-700">Edit</a>
+                    <button class="bg-red-600 text-white px-2 py-1 rounded-sm hover:bg-red-700"
+                        onclick="openDeleteModal('{{ checkbook.id }}', '${{ checkbook.amount }}')">
                         Delete
                     </button>
                 </td>
@@ -57,9 +56,9 @@
     </table>
     {% else %}
     <div class="flex items-center justify-center space-y-2 flex-col">
-        <img src="{% static 'img/user.png' %}" alt="No Members" class="w-24">
-        <h2>No Minutes are uploaded</h2>
-        <p>Currently, there are no current minutes.</p>
+        <img src="{% static 'img/user.png' %}" alt="No Checkbooks" class="w-24">
+        <h2>No Financial Checkbooks Found</h2>
+        <p>There are no records available at the moment.</p>
     </div>
     {% endif %}
 </section>
@@ -69,35 +68,50 @@
     <div class="modal-content bg-white w-full max-w-lg p-6 rounded-lg shadow-lg relative space-y-5">
         <span class="close absolute top-3 right-4 text-gray-600 text-xl cursor-pointer hover:text-red-500"
             onclick="closeModal()">&times;</span>
-        <h3 class="text-2xl font-semibold text-gray-800">Create Minutes</h3>
-        <p class="text-gray-600">This information will be used to create Minutes</p>
+        <h3 class="text-2xl font-semibold text-gray-800">Add Financial Entry</h3>
+        <p class="text-gray-600">Record a new financial transaction</p>
 
-        <form id="minutesForm" class="space-y-4" method="post" action="{% url 'admin:create_minutes' %}"
+        <form id="checkbookForm" class="space-y-4" method="post" action="{% url 'admin:create_checkbook' %}"
             enctype="multipart/form-data">
             {% csrf_token %}
+
             <div>
-                <label for="minutesTitle" class="block text-sm font-medium text-gray-700">Minutes Title*</label>
-                <input type="text" id="minutesTitle" placeholder="Enter minutes title" name="title"
-                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <label for="transaction_type" class="block text-sm font-medium text-gray-700">Transaction Type</label>
+                <select name="transaction_type" id="transaction_type"
+                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" required>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                </select>
             </div>
 
             <div>
-                <label for="minutesDate" class="block text-sm font-medium text-gray-700">Minutes Date*</label>
-                <input type="date" id="minutesDate"
-                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    name="date">
+                <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
+                <input type="number" step="0.01" id="amount" name="amount" placeholder="Enter amount"
+                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" required>
             </div>
 
             <div>
-                <label for="minutesDescription" class="block text-sm font-medium text-gray-700">Minutes</label>
-                <input type="file" id="minutesFile" name="minuites" accept=".pdf,.doc,.docx"
+                <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                <textarea id="description" name="description" placeholder="Enter description (optional)"
+                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+
+            <div>
+                <label for="date" class="block text-sm font-medium text-gray-700">Transaction Date</label>
+                <input type="date" id="date" name="date"
+                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" required>
+            </div>
+
+            <div>
+                <label for="checkbook" class="block text-sm font-medium text-gray-700">Checkbook</label>
+                <input type="file" id="minutesFile" name="checkbook" accept=".pdf,.doc,.docx"
                     class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
             <div class="modal-footer flex justify-end space-x-4">
                 <button type="submit"
                     class="publish-btn bg-blue-600 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition">
-                    Save and Publish
+                    Save Entry
                 </button>
             </div>
         </form>
@@ -192,7 +206,6 @@
 
     });
 </script>
-
 
 <script>
     // Open delete modal and update the form action

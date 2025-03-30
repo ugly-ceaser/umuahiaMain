@@ -5,7 +5,6 @@
 
 {% block content %}
 
-<!-- Greeting Section -->
 <div class="under">
     <div class="space-y-1">
         <h3 class="text-3xl font-semibold">
@@ -25,7 +24,6 @@
 <!-- Stats Cards -->
 {% include './_stats.html' %}
 
-
 <!-- Members Section -->
 <section class="p-0">
     {% include './_dash-menu-tabs.html' %}
@@ -43,6 +41,7 @@
                 <th>Position</th>
                 <th>Date Registered</th>
                 <th>Status</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -54,7 +53,7 @@
                     </div>
                 </td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.position|default:"Member" }}</td>
+                <td>{% if user.is_staff %}Administrator{% else %}Member{% endif %}</td>
                 <td>{{ user.date_joined|date:"n/j/Y" }}</td>
                 <td>
                     {% if user.is_active %}
@@ -62,6 +61,25 @@
                     {% else %}
                     <span class="p-2 rounded-full text-red-700 font-bold text-sm bg-menu">● Inactive</span>
                     {% endif %}
+                </td>
+                <td class="flex">
+                    <button
+                        class="deactivate-btn text-sm text-white font-semibold bg-yellow-500 hover:bg-yellow-600 px-2 py-1 rounded-sm"
+                        onclick="openStatusModal('{{ user.id }}', '{{ user.first_name }} {{ user.last_name }}')">
+                        <i class="ti ti-user-x"></i>
+                        Deactivate
+                    </button>
+                    <button
+                        class="delete-btn text-sm text-white font-semibold bg-red-600 hover:bg-red-700 px-2 py-1 rounded-sm"
+                        onclick="openDeleteModal('{{ user.id }}', '{{ user.first_name }} {{ user.last_name }}')">
+                        <i class="ti ti-trash"></i>
+                        Delete
+                    </button>
+                    <a href="{% url 'admin:edit_user' user.id %}"
+                        class="reset-btn text-sm text-white font-semibold bg-blue-600 hover:bg-blue-700 px-2 py-1 rounded-sm">
+                        <i class="ti ti-key"></i>
+                        Reset Password
+                    </a>
                 </td>
             </tr>
             {% endfor %}
@@ -84,7 +102,7 @@
         <h3 class="text-2xl font-semibold text-gray-800">Create Member</h3>
         <p class="text-gray-600">This information will be used to create Minutes</p>
 
-        <form id="minuitesForm" class="space-y-4" method="post">
+        <form id="minuitesForm" class="space-y-4" method="post" action="{% url 'admin:create_user' %}">
             {% csrf_token %}
 
             <div>
@@ -100,14 +118,23 @@
             </div>
 
             <div>
-                <label for="phone_number" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                <input type="text" id="phone_number" name="phone_number" placeholder="Enter phone number"
+                <label for="position" class="block text-sm font-medium text-gray-700">Position</label>
+                <select name="position" id="position"
                     class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                    <option value="admin">Administrator</option>
+                    <option value="member">Member</option>
+                </select>
             </div>
 
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-700">Password*</label>
                 <input type="password" id="password" name="password" placeholder="Enter password"
+                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" required>
+            </div>
+
+            <div>
+                <label for="password2" class="block text-sm font-medium text-gray-700">Re-enter Password*</label>
+                <input type="password" id="password2" name="password2" placeholder="Re-enter Password"
                     class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" required>
             </div>
 
@@ -118,7 +145,55 @@
                 </button>
             </div>
         </form>
+    </div>
+</div>
 
+<!-- Deactivation/Activation Modal -->
+<div id="statusModal" class="modals fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative">
+        <span class="close absolute top-2 right-2 text-gray-600 cursor-pointer">&times;</span>
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">
+            You are about to deactivate <span id="memberName" class="font-bold"></span>
+        </h3>
+        <p class="text-sm text-gray-600 mb-4">
+            Are you sure you want to deactivate this member?
+        </p>
+        <!-- Form for deactivation -->
+        <form id="deactivateForm" method="post" action="">
+            {% csrf_token %}
+            <div class="flex justify-end space-x-2">
+                <button type="button" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+                    onclick="closeModal('statusModal')">
+                    Cancel
+                </button>
+                <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                    Yes, Confirm
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modals fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative">
+        <span class="close absolute top-2 right-2 text-gray-600 hover:text-gray-800 cursor-pointer">&times;</span>
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">
+            Are you sure you want to delete <span id="deleteMemberName" class="font-bold"></span>?
+        </h3>
+        <!-- Form for deletion -->
+        <form id="deleteForm" method="post" action="">
+            {% csrf_token %}
+            <div class="flex justify-end space-x-2">
+                <button type="button" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+                    onclick="closeModal('deleteModal')">
+                    Cancel
+                </button>
+                <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                    Yes, Delete
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -205,5 +280,95 @@
         });
     });
 </script>
+
+<script>
+    // Open deactivation modal and update the form action
+    function openStatusModal(userId, userName) {
+        document.getElementById("memberName").textContent = userName;
+        // Build the URL, e.g. "/user/123/deactivate/"
+        document.getElementById("deactivateForm").action = `user/${userId}/deactivate/`;
+        document.getElementById("statusModal").style.display = "block";
+    }
+
+    // Open delete modal and update the form action
+    function openDeleteModal(userId, userName) {
+        document.getElementById("deleteMemberName").textContent = userName;
+        // Build the URL, e.g. "/user/123/delete/"
+        document.getElementById("deleteForm").action = `user/${userId}/delete/`;
+        document.getElementById("deleteModal").style.display = "block";
+    }
+
+    // Generic function to close modals by id
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+
+    // Ensure all close buttons work after the DOM is loaded
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".close").forEach(closeBtn => {
+            closeBtn.addEventListener("click", function () {
+                this.closest(".modals").style.display = "none";
+            });
+        });
+    });
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("minuitesForm");
+        const toast = document.getElementById("toast");
+
+        function showToast(title, message, isSuccess = true) {
+            const toastTitle = document.getElementById("toast-title");
+            const toastMessage = document.getElementById("toast-message");
+            const toastIcon = document.getElementById("toast-icon");
+
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+
+            if (isSuccess) {
+                toast.classList.remove("error");
+                toast.classList.add("success");
+                toastIcon.src = "{% static 'img/checks.png' %}";
+            } else {
+                toast.classList.remove("success");
+                toast.classList.add("error");
+                toastIcon.src = "{% static 'img/errors.png' %}";
+            }
+
+            toast.classList.add("show");
+
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 5000);
+        }
+
+        form?.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("password2").value;
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            if (!passwordRegex.test(password)) {
+                showToast("Error", "Password must be at least 8 characters long and include an uppercase letter, a number, and a special character.", false);
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showToast("Error", "Passwords do not match.", false);
+                return;
+            }
+
+            showToast("Success", "Member created successfully!", true);
+
+            setTimeout(() => {
+                form.submit();
+            }, 2000);
+        });
+    });
+</script>
+
 
 {% endblock content %}
