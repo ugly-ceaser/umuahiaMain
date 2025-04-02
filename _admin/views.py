@@ -235,25 +235,17 @@ class FinancialCheckbookListView(AdminRequiredMixin, ListView):
 # Create Financial Checkbook Entry
 class CreateFinancialCheckbookView(AdminRequiredMixin, View):
     def post(self, request):
-        transaction_type = request.POST.get("transaction_type")
-        amount = request.POST.get("amount")
-        date = request.POST.get("date")
-        description = request.POST.get("description")
+        subject = request.POST.get("subject")
         checkbook_file = request.FILES.get("checkbook")
 
-        print(transaction_type, amount, date, description, checkbook_file)
+        print(subject, checkbook_file)
 
-        if not (transaction_type and amount and date and checkbook_file):
-            messages.error(
-                request, "Transaction type, amount, date and checkbook are required."
-            )
+        if not (subject and checkbook_file):
+            messages.error(request, "Subject and checkbook are required.")
             return redirect("admin:financial_checkbook")
 
         FinancialCheckbook.objects.create(
-            transaction_type=transaction_type,
-            amount=amount,
-            date=date,
-            description=description,
+            subject=subject,
             checkbook=checkbook_file,
         )
 
@@ -273,13 +265,7 @@ class EditFinancialCheckbookView(AdminRequiredMixin, View):
 
     def post(self, request, checkbook_id):
         checkbook_entry = get_object_or_404(FinancialCheckbook, id=checkbook_id)
-        checkbook_entry.transaction_type = request.POST.get(
-            "transaction_type", checkbook_entry.transaction_type
-        )
-        checkbook_entry.amount = request.POST.get("amount", checkbook_entry.amount)
-        checkbook_entry.description = request.POST.get(
-            "description", checkbook_entry.description
-        )
+        checkbook_entry.subject = request.POST.get("subject", checkbook_entry.subject)
         checkbook_entry.checkbook = request.POST.get(
             "checkbook", checkbook_entry.checkbook
         )

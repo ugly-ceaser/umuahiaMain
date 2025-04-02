@@ -4,6 +4,24 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<style>
+    .swiper-slide {
+        height: auto;
+        /* Ensures slides match tallest content */
+    }
+
+    .gallerySwiper {
+        padding: 20px 0;
+        /* Space for navigation */
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: #4A4646;
+        /* Match your theme */
+    }
+</style>
+
 <section class="h-screen relative" id="hero">
     <div class="flex items-center justify-center py-10 h-full flex-col relative z-10">
         <div class="flex items-center flex-col text-center space-y-5">
@@ -33,7 +51,7 @@
 </section>
 
 
-<section id="about" class="h-fit flex items-center justify-center" data-aos="fade-left" data-aos-duration="1200">
+<section id="about" class="h-fit flex items-center justify-center mt-10" data-aos="fade-left" data-aos-duration="1200">
     <div class="container flex sm:flex-row flex-col-reverse">
         <div class="w-full md:w-1/2 space-y-2 p-10 flex items-center justify-center" data-aos="fade-right"
             data-aos-delay="400">
@@ -55,7 +73,7 @@
                     where everyone feels a sense of belonging.
                     Join us in building a stronger community—together, we thrive!
                 </p>
-                <a href=""
+                <a href="#contact"
                     class="px-10 py-2 rounded-sm border-2 border-primary duration-300 hover:bg-primary text-primary hover:text-white font-semibold text-sm block w-fit uppercase"
                     data-aos="fade-up" data-aos-delay="400">Join Us Today</a>
             </div>
@@ -171,21 +189,94 @@
     </div>
 </section>
 
-<section id="gallery" class="h-fit flex items-center justify-center p-10" data-aos="fade-up" data-aos-duration="1200">
-    <div class="container space-y-6 text-center flex items-center flex-col">
-        <h1 class="text-4xl font-semibold text-[#4A4646]" data-aos="fade-up">Gallery</h1>
-        <p class="text-sm w-full md:w-3/4" data-aos="fade-up" data-aos-delay="200">
-            Allow yourself to be enveloped by the timeless elegance of eternal love: immerse your senses in our
-            carefully curated collection of exquisite works.
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            <img src="{% static 'img/map-woman.jpg' %}" alt="Gallery 1" data-aos="fade-up" data-aos-delay="400">
-            <img src="{% static 'img/moses.jpg' %}" alt="Gallery 3" data-aos="fade-up" data-aos-delay="600">
-            <img src="{% static 'img/map-woman.jpg' %}" alt="Gallery 3" data-aos="fade-up" data-aos-delay="800">
-            <img src="{% static 'img/onye.jpg' %}" alt="Gallery 3" data-aos="fade-up" data-aos-delay="1000">
-            <img src="{% static 'img/map-woman.jpg' %}" alt="Gallery 3" data-aos="fade-up" data-aos-delay="1200">
-            <img src="{% static 'img/drcoy.jpg' %}" alt="Gallery 6" data-aos="fade-up" data-aos-delay="1400">
+<section id="gallery" class="flex items-center justify-center bg-white py-16" data-aos="fade-up">
+    <div class="container">
+        <!-- ... Title and description ... -->
+        <!-- Swiper Container -->
+        <div class="swiper gallerySwiper">
+            <div class="swiper-wrapper">
+                <!-- Slide 1 -->
+                <div class="swiper-slide">
+                    <div class="relative group">
+                        <img src="{% static 'img/map-woman.jpg' %}" alt="Gallery 1" class="w-full">
+                        <div
+                            class="overlay absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+                            <div class="text-white text-center">
+                                <h3 class="text-lg font-bold">Timeless Elegance</h3>
+                                <p class="text-sm mt-2">A curated piece symbolizing eternal love and artistry.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="relative group">
+                        <img src="{% static 'img/moses.jpg' %}" alt="Gallery 1" class="w-full">
+                        <div
+                            class="overlay absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+                            <div class="text-white text-center">
+                                <h3 class="text-lg font-bold">Timeless Elegance</h3>
+                                <p class="text-sm mt-2">A curated piece symbolizing eternal love and artistry.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="relative group">
+                        <img src="{% static 'img/map-woman.jpg' %}" alt="Gallery 1" class="w-full">
+                        <div
+                            class="overlay absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+                            <div class="text-white text-center">
+                                <h3 class="text-lg font-bold">Timeless Elegance</h3>
+                                <p class="text-sm mt-2">A curated piece symbolizing eternal love and artistry.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="relative group">
+                        <img src="{% static 'img/onye.jpg' %}" alt="Gallery 1" class="w-full">
+                        <div
+                            class="overlay absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+                            <div class="text-white text-center">
+                                <h3 class="text-lg font-bold">Timeless Elegance</h3>
+                                <p class="text-sm mt-2">A curated piece symbolizing eternal love and artistry.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="relative group">
+                        <img src="{% static 'img/map-woman.jpg' %}" alt="Gallery 1" class="w-full">
+                        <div
+                            class="overlay absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+                            <div class="text-white text-center">
+                                <h3 class="text-lg font-bold">Timeless Elegance</h3>
+                                <p class="text-sm mt-2">A curated piece symbolizing eternal love and artistry.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="relative group">
+                        <img src="{% static 'img/drcoy.jpg' %}" alt="Gallery 1" class="w-full">
+                        <div
+                            class="overlay absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+                            <div class="text-white text-center">
+                                <h3 class="text-lg font-bold">Timeless Elegance</h3>
+                                <p class="text-sm mt-2">A curated piece symbolizing eternal love and artistry.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for other slides with unique info -->
         </div>
+        <!-- Navigation and Pagination -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
     </div>
 </section>
 
@@ -240,4 +331,5 @@
         </div>
     </div>
 </section>
+
 {% endblock %}

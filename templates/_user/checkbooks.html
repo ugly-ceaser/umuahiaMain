@@ -23,10 +23,7 @@
     <table class="min-w-full bg-white border-collapse">
         <thead>
             <tr>
-                <th class="py-2 px-4 border-b">Transaction Type</th>
-                <th class="py-2 px-4 border-b">Amount</th>
-                <th class="py-2 px-4 border-b">Date</th>
-                <th class="py-2 px-4 border-b">Description</th>
+                <th class="py-2 px-4 border-b">Subject</th>
                 <th class="py-2 px-4 border-b">Checkbook</th>
                 <th class="py-2 px-4 border-b">Download</th>
             </tr>
@@ -34,12 +31,10 @@
         <tbody>
             {% for checkbook in checkbooks %}
             <tr>
-                <td class="py-2 px-4 border-b capitalize">{{ checkbook.get_transaction_type_display }}</td>
-                <td class="py-2 px-4 border-b">${{ checkbook.amount|intcomma }}</td>
-                <td class="py-2 px-4 border-b">{{ checkbook.date|date:"n/j/Y" }}</td>
-                <td class="py-2 px-4 border-b">{{ checkbook.description|default:"N/A"|truncatewords:15 }}</td>
-                <td class="py-2 px-4 border-b"><a href="{{ checkbook.checkbook.url }}" class="hover:underline"
-                        target="_blank">
+                <td class="py-2 px-4 border-b capitalize">{{ checkbook.subject }}</td>
+                <td class="py-2 px-4 border-b"><a
+                        href="{% if checkbook.checkbook %}{{ checkbook.checkbook.url }}{% else %}{% endif %}"
+                        class="hover:underline" target="_blank">
                         {{ checkbook.checkbook|truncatewords:20 }}</a></td>
                 <td class="py-2 px-4 border-b">
                     <form method="POST">
