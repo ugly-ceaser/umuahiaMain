@@ -12,32 +12,10 @@
             {% csrf_token %}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
-                    <label for="transaction_type" class="block text-sm font-medium">Transaction Type</label>
-                    <select name="transaction_type" id="transaction_type"
-                        class="w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-indigo-300 px-4 py-2">
-                        <option value="income">Income
-                        </option>
-                        <option value="expense">
-                            Expense</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="amount" class="block text-sm font-medium">Amount</label>
-                    <input type="number" name="amount" id="amount" step="0.01"
+                    <label for="subject class=" block text-sm font-medium">Subject</label>
+                    <input type="text" name="subject id=" subject
                         class="w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-indigo-300 px-4 py-2"
-                        value="{{ checkbook.amount }}" required>
-                </div>
-                <div>
-                    <label for="date" class="block text-sm font-medium">Date</label>
-                    <input type="date" name="date" id="date"
-                        class="w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-indigo-300 px-4 py-2"
-                        value="{{ checkbook.date|date:'Y-m-d' }}">
-                </div>
-                <div class="col-span-2">
-                    <label for="description" class="block text-sm font-medium">Description</label>
-                    <textarea name="description" id="description"
-                        class="w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-indigo-300 px-4 py-2"
-                        rows="3">{{ checkbook.description }}</textarea>
+                        value="{{ checkbook.subject }}" required>
                 </div>
                 <div class="col-span-2">
                     <label for="checbook" class="block text-sm font-medium">Checbook</label>

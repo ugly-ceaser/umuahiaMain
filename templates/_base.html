@@ -12,8 +12,10 @@
         Umuahia Ireland | {% block title %}{%endblock title %}
     </title>
 
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="{% static 'css/tabler-icons.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
@@ -134,18 +136,28 @@
                 <div class="space-y-4">
                     <h3 class="text-white font-bold text-lg mb-4">Follow Us</h3>
                     <div class="flex space-x-4">
+                        <!-- Facebook -->
                         <a href="https://www.facebook.com/profile.php?id=61561613840171" target="_blank"
-                            class="p-2 bg-gray-800 rounded-full hover:bg-primary transition-colors"
+                            class="p-2 bg-gray-800 rounded-full hover:bg-[#1877F2] transition-colors group"
                             aria-label="Facebook">
-                            <i class="fab fa-facebook text-lg w-6 h-6 text-center"></i>
+                            <i class="fab fa-facebook text-lg w-6 h-6 text-center group-hover:text-white"></i>
                         </a>
-                        <a href="#" class="p-2 bg-gray-800 rounded-full hover:bg-primary transition-colors"
+
+                        <!-- Twitter (now X) -->
+                        <a href="#" class="p-2 bg-gray-800 rounded-full hover:bg-black transition-colors group"
                             aria-label="Twitter">
-                            <i class="fab fa-twitter text-lg w-6 h-6 text-center"></i>
+                            <i class="fab fa-x-twitter text-lg w-6 h-6 text-center group-hover:text-[#1DA1F2]"></i>
                         </a>
-                        <a href="#" class="p-2 bg-gray-800 rounded-full hover:bg-primary transition-colors"
+
+                        <!-- Instagram -->
+                        <a href="#"
+                            class="p-2 bg-gray-800 rounded-full hover:bg-gradient-to-r from-[#833AB4] via-[#C13584] to-[#E1306C] transition-colors group relative overflow-hidden"
                             aria-label="Instagram">
-                            <i class="fab fa-instagram text-lg w-6 h-6 text-center"></i>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-[#833AB4] via-[#C13584] to-[#E1306C] opacity-0 group-hover:opacity-100 transition-opacity">
+                            </div>
+                            <i
+                                class="fab fa-instagram text-lg w-6 h-6 text-center relative z-10 group-hover:text-white"></i>
                         </a>
                     </div>
                 </div>
@@ -156,9 +168,33 @@
             </div>
         </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        const swiper = new Swiper('.gallerySwiper', {
+            loop: true,
+            slidesPerView: 3,
+            spaceBetween: 20,
+            // Responsive breakpoints
+            breakpoints: {
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
+
     <script>
         // Toggle mobile menu visibility
         document.getElementById('menu-toggle').addEventListener('click', function () {
