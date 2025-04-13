@@ -41,9 +41,9 @@
                             Us</a></li>
                     {% if request.user.is_authenticated %}
                     {% if request.user.is_superuser %}
-                    {% comment %} <li><a href="{% url 'admin:dashboard_members' %}"
+                    <li><a href="{% url 'admin:dashboard_members' %}"
                             class="text-gray-700 hover:text-primary transition-all duration-300">Dashboard</a></li>
-                    {% else %} {% endcomment %}
+                    {% else %}
                     <li><a href="{% url 'user:dashboard' %}"
                             class="text-gray-700 hover:text-primary transition-all duration-300">Dashboard</a></li>
                     {% endif %}
