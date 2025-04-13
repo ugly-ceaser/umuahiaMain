@@ -92,7 +92,7 @@ DATABASES = {
     "default": dj_database_url.config(
         default=os.getenv(
             "DATABASE_URL",
-            "postgresql://umuahiadb_user:mkbdjPKor0UIujt3uzAmCl3zbJmksarX@dpg-cv6migtumphs738btq4g-a.oregon-postgres.render.com/umuahiadb",
+            "postgresql://umuahia_db_cjtb_user:tnVzOQdGLPMsXXleQsTQVdCTdy6IzsWY@dpg-cvtq0lbe5dus73ad9ltg-a.oregon-postgres.render.com/umuahia_db_cjtb",
         ),
         conn_max_age=600,
         ssl_require=True,  # Render requires SSL for connections
