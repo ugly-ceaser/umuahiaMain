@@ -13,11 +13,16 @@ RUN apt-get update \
     libmysqlclient-dev \
     clang \
     make \
+    ca-certificates \
     && apt-get clean
 
 # Install Rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
+
+# Set environment variables to avoid read-only file system errors
+ENV CARGO_HOME=/tmp/cargo
+ENV CARGO_TARGET_DIR=/tmp/target
 
 # Install maturin globally
 RUN pip install maturin
